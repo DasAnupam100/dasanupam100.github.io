@@ -109,7 +109,7 @@
             </div>
             
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
-                Enter your password to access the website Content Management System. Default password is <code class="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-blue-600 font-bold">admin123</code>.
+                Enter your administrative password to access the website Content Management System.
             </p>
 
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
@@ -208,9 +208,6 @@
                     </div>
 
                     <div class="flex items-center space-x-3">
-                        <button onclick="resetDataToDefault()" class="px-3 py-1.5 rounded-xl bg-red-600/80 hover:bg-red-600 text-white text-xs font-semibold transition-colors">
-                            <i class="fas fa-rotate-left mr-1"></i> Reset All Data
-                        </button>
                         <button onclick="closeAdminPanel()" class="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors border border-slate-700">
                             <i class="fas fa-circle-xmark mr-1"></i> Exit Admin
                         </button>
@@ -226,7 +223,7 @@
                     <button onclick="switchAdminTab('experience', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Experience</button>
                     <button onclick="switchAdminTab('gallery', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Gallery & Albums</button>
                     <button onclick="switchAdminTab('references', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">References</button>
-                    <button onclick="switchAdminTab('security', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Admin Password</button>
+                    <button onclick="switchAdminTab('security', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Admin Password & Reset</button>
                 </div>
 
                 <!-- Admin Tab Content Body -->
@@ -285,22 +282,20 @@
                             <textarea id="adm-bio" rows="4" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs"></textarea>
                         </div>
 
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold mb-1">Email Address</label>
-                                <input type="text" id="adm-email" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                        <!-- DYNAMIC SOCIAL & ACADEMIC ACCOUNTS -->
+                        <div class="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Academic & Social Profiles</h4>
+                                    <p class="text-[11px] text-slate-500">Add custom accounts (e.g., Scopus, Web of Science, LinkedIn, ORCID). Logos load automatically.</p>
+                                </div>
+                                <button type="button" onclick="addSocialLinkAdmin()" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors">
+                                    <i class="fas fa-plus mr-1"></i> Add Account
+                                </button>
                             </div>
-                            <div>
-                                <label class="block text-xs font-bold mb-1">Google Scholar URL</label>
-                                <input type="text" id="adm-scholar" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold mb-1">ORCID Profile URL</label>
-                                <input type="text" id="adm-orcid" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold mb-1">LinkedIn Profile URL</label>
-                                <input type="text" id="adm-linkedin" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+
+                            <div id="adm-social-links-list" class="space-y-3">
+                                <!-- Dynamic links inputs -->
                             </div>
                         </div>
 
@@ -408,16 +403,36 @@
                         <div id="adm-ref-list" class="space-y-4"></div>
                     </div>
 
-                    <!-- TAB 8: SECURITY -->
-                    <div id="admin-tab-security" class="admin-tab-content hidden space-y-4 max-w-md">
-                        <h3 class="text-base font-bold text-slate-900 dark:text-white pb-2 border-b border-slate-200 dark:border-slate-800">Change Admin Password</h3>
-                        <div>
-                            <label class="block text-xs font-bold mb-1">New Password</label>
-                            <input type="password" id="adm-new-pass" class="w-full p-2.5 rounded-xl border dark:bg-slate-800 text-xs">
+                    <!-- TAB 8: SECURITY & RESET -->
+                    <div id="admin-tab-security" class="admin-tab-content hidden space-y-8 max-w-xl">
+                        <div class="space-y-4">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white pb-2 border-b border-slate-200 dark:border-slate-800">Change Admin Password</h3>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">New Password</label>
+                                <input type="password" id="adm-new-pass" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <button onclick="changePasswordAdmin()" class="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">
+                                Update Password
+                            </button>
                         </div>
-                        <button onclick="changePasswordAdmin()" class="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">
-                            Update Password
-                        </button>
+
+                        <!-- Password Protected Reset Data Section -->
+                        <div class="p-6 rounded-2xl bg-red-500/10 border border-red-500/30 space-y-4">
+                            <div class="flex items-center space-x-3 text-red-600 dark:text-red-400">
+                                <i class="fas fa-triangle-exclamation text-xl"></i>
+                                <h4 class="text-sm font-bold">Protected Data Reset Options</h4>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-400">
+                                Resetting data will erase custom modifications and restore seed default content. Enter your current password to proceed.
+                            </p>
+                            <div>
+                                <label class="block text-xs font-bold mb-1 text-slate-700 dark:text-slate-300">Confirm Current Password</label>
+                                <input type="password" id="reset-confirm-pass" placeholder="Enter current admin password" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <button onclick="resetDataWithPassword()" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors shadow">
+                                <i class="fas fa-rotate-left mr-1"></i> Reset All Data
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -485,24 +500,9 @@
                                 </span>
                             </div>
 
-                            <!-- Action Buttons -->
-                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-3">
-                                <a id="pub-link-email" href="mailto:anupam.das.vet@gmail.com" class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium transition-colors border border-slate-200 dark:border-slate-700">
-                                    <i class="fas fa-envelope text-red-500"></i>
-                                    <span>Email</span>
-                                </a>
-                                <a id="pub-link-scholar" href="https://scholar.google.com" target="_blank" rel="noopener" class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium transition-colors border border-slate-200 dark:border-slate-700">
-                                    <i class="fas fa-graduation-cap text-blue-600"></i>
-                                    <span>Google Scholar</span>
-                                </a>
-                                <a id="pub-link-orcid" href="https://orcid.org" target="_blank" rel="noopener" class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium transition-colors border border-slate-200 dark:border-slate-700">
-                                    <i class="fab fa-orcid text-emerald-600"></i>
-                                    <span>ORCID</span>
-                                </a>
-                                <a id="pub-link-linkedin" href="https://linkedin.com" target="_blank" rel="noopener" class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium transition-colors border border-slate-200 dark:border-slate-700">
-                                    <i class="fab fa-linkedin text-blue-700"></i>
-                                    <span>LinkedIn</span>
-                                </a>
+                            <!-- Dynamic Action Links Buttons -->
+                            <div id="pub-hero-links" class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-3">
+                                <!-- Dynamic Render -->
                             </div>
                         </div>
                     </div>
@@ -681,10 +681,14 @@
                 cvUrl: "Anupam_Das_CV.pdf",
                 avatarUrl: "", // Blank defaults to AD initial placeholder
                 bio: "Veterinary Virologist with comprehensive training in molecular diagnostic virology, viral isolation, and computational genomics. My research spans field outbreak surveillance, full-genome NGS assembly, phylogenetics, selection pressure, and recombination dynamics in high-impact avian and zoonotic viruses. Committed to pursuing advanced PhD research in virus evolution, host-pathogen interactions, and emerging infectious disease prevention.",
-                email: "anupam.das.vet@gmail.com",
-                scholar: "https://scholar.google.com",
-                orcid: "https://orcid.org",
-                linkedin: "https://linkedin.com"
+                socialLinks: [
+                    { id: 1, name: "Email", url: "mailto:anupam.das.vet@gmail.com" },
+                    { id: 2, name: "Google Scholar", url: "https://scholar.google.com" },
+                    { id: 3, name: "ORCID", url: "https://orcid.org" },
+                    { id: 4, name: "LinkedIn", url: "https://linkedin.com" },
+                    { id: 5, name: "Scopus", url: "https://scopus.com" },
+                    { id: 6, name: "Web of Science", url: "https://webofscience.com" }
+                ]
             },
             education: [
                 {
@@ -888,17 +892,29 @@
         // LOAD APP DATA FROM LOCALSTORAGE OR SEED
         let appData = JSON.parse(localStorage.getItem('anupam_portfolio_cms_db')) || defaultData;
 
+        // Fallback migration for existing databases without socialLinks array
+        if (!appData.profile.socialLinks) {
+            appData.profile.socialLinks = defaultData.profile.socialLinks;
+        }
+
         function saveAppData() {
             localStorage.setItem('anupam_portfolio_cms_db', JSON.stringify(appData));
             renderAllPublicSections();
             showToast('Changes saved & published live!');
         }
 
-        function resetDataToDefault() {
-            if (confirm("Reset all content back to initial demo data? Any custom edits will be erased.")) {
-                appData = JSON.parse(JSON.stringify(defaultData));
-                saveAppData();
-                renderAdminPortal();
+        function resetDataWithPassword() {
+            const passInput = document.getElementById('reset-confirm-pass').value;
+            if (passInput === (appData.adminPassword || "admin123")) {
+                if (confirm("Are you sure you want to reset all data back to original defaults? All customized content will be lost.")) {
+                    appData = JSON.parse(JSON.stringify(defaultData));
+                    saveAppData();
+                    renderAdminPortal();
+                    document.getElementById('reset-confirm-pass').value = '';
+                    showToast('Database reset successfully!');
+                }
+            } else {
+                alert('Incorrect current password. Data reset cancelled.');
             }
         }
 
@@ -966,6 +982,21 @@
         let activePubFilter = 'all';
         let activeGalleryAlbum = 'all';
 
+        // ICON MAPPER FOR DYNAMIC ACCOUNTS
+        function getIconForAccount(name) {
+            const lower = name.toLowerCase();
+            if (lower.includes('email') || lower.includes('mail')) return 'fas fa-envelope text-red-500';
+            if (lower.includes('scholar')) return 'fas fa-graduation-cap text-blue-600';
+            if (lower.includes('orcid')) return 'fab fa-orcid text-emerald-600';
+            if (lower.includes('linkedin')) return 'fab fa-linkedin text-blue-700';
+            if (lower.includes('scopus')) return 'fas fa-book-journal-whills text-orange-500';
+            if (lower.includes('web of science') || lower.includes('wos')) return 'fas fa-globe text-amber-600';
+            if (lower.includes('researchgate')) return 'fab fa-researchgate text-teal-600';
+            if (lower.includes('github')) return 'fab fa-github text-slate-800 dark:text-slate-200';
+            if (lower.includes('twitter') || lower.includes('x')) return 'fab fa-x-twitter text-slate-800 dark:text-slate-200';
+            return 'fas fa-link text-blue-500';
+        }
+
         function renderAllPublicSections() {
             // Profile & Hero
             const p = appData.profile;
@@ -983,10 +1014,19 @@
 
             document.getElementById('cv-download-btn').href = p.cvUrl || '#';
             document.getElementById('mobile-cv-btn').href = p.cvUrl || '#';
-            document.getElementById('pub-link-email').href = `mailto:${p.email}`;
-            document.getElementById('pub-link-scholar').href = p.scholar || '#';
-            document.getElementById('pub-link-orcid').href = p.orcid || '#';
-            document.getElementById('pub-link-linkedin').href = p.linkedin || '#';
+
+            // Dynamic Hero Social/Academic Links Render
+            const heroLinksContainer = document.getElementById('pub-hero-links');
+            if (p.socialLinks && p.socialLinks.length > 0) {
+                heroLinksContainer.innerHTML = p.socialLinks.map(link => `
+                    <a href="${link.url}" target="_blank" rel="noopener" class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium transition-colors border border-slate-200 dark:border-slate-700">
+                        <i class="${getIconForAccount(link.name)}"></i>
+                        <span>${link.name}</span>
+                    </a>
+                `).join('');
+            } else {
+                heroLinksContainer.innerHTML = '';
+            }
 
             // Avatar render
             const avatarContainer = document.getElementById('avatar-container');
@@ -1247,12 +1287,9 @@
             document.getElementById('adm-cvurl').value = p.cvUrl;
             document.getElementById('adm-avatar-url').value = p.avatarUrl;
             document.getElementById('adm-bio').value = p.bio;
-            document.getElementById('adm-email').value = p.email;
-            document.getElementById('adm-scholar').value = p.scholar;
-            document.getElementById('adm-orcid').value = p.orcid;
-            document.getElementById('adm-linkedin').value = p.linkedin;
 
             previewAvatarFromUrl(p.avatarUrl);
+            renderSocialLinksAdminList();
 
             // Fill Skills Admin
             const cat1 = appData.skills.category1;
@@ -1271,6 +1308,47 @@
             renderExperienceAdminList();
             renderGalleryAdminList();
             renderReferencesAdminList();
+        }
+
+        // SOCIAL / ACADEMIC LINKS ADMIN MANAGER
+        function renderSocialLinksAdminList() {
+            const listContainer = document.getElementById('adm-social-links-list');
+            const links = appData.profile.socialLinks || [];
+
+            listContainer.innerHTML = links.map(link => `
+                <div class="flex items-center space-x-3 bg-slate-50 dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <div class="w-8 h-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0">
+                        <i class="${getIconForAccount(link.name)}"></i>
+                    </div>
+                    <input type="text" value="${link.name}" onchange="updateSocialLinkField(${link.id}, 'name', this.value)" placeholder="Platform (e.g., Scopus)" class="w-1/3 p-2 text-xs rounded-xl border dark:bg-slate-900 font-medium">
+                    <input type="text" value="${link.url}" onchange="updateSocialLinkField(${link.id}, 'url', this.value)" placeholder="URL / Mailto" class="flex-1 p-2 text-xs rounded-xl border dark:bg-slate-900">
+                    <button type="button" onclick="deleteSocialLinkAdmin(${link.id})" class="p-2 text-red-500 hover:text-red-700 shrink-0">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateSocialLinkField(id, field, val) {
+            const link = appData.profile.socialLinks.find(l => l.id === id);
+            if (link) {
+                link[field] = val;
+                saveAppData();
+                renderSocialLinksAdminList();
+            }
+        }
+
+        function addSocialLinkAdmin() {
+            const newId = Date.now();
+            appData.profile.socialLinks.push({ id: newId, name: "Scopus", url: "https://scopus.com" });
+            saveAppData();
+            renderSocialLinksAdminList();
+        }
+
+        function deleteSocialLinkAdmin(id) {
+            appData.profile.socialLinks = appData.profile.socialLinks.filter(l => l.id !== id);
+            saveAppData();
+            renderSocialLinksAdminList();
         }
 
         function previewAvatarFromUrl(url) {
@@ -1304,10 +1382,6 @@
             appData.profile.cvUrl = document.getElementById('adm-cvurl').value;
             appData.profile.avatarUrl = document.getElementById('adm-avatar-url').value;
             appData.profile.bio = document.getElementById('adm-bio').value;
-            appData.profile.email = document.getElementById('adm-email').value;
-            appData.profile.scholar = document.getElementById('adm-scholar').value;
-            appData.profile.orcid = document.getElementById('adm-orcid').value;
-            appData.profile.linkedin = document.getElementById('adm-linkedin').value;
             saveAppData();
         }
 
