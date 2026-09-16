@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anupam Das, DVM, MS | Academic Portfolio & CMS</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            500: '#334e68',
+                            800: '#102a43',
+                            900: '#0b1b2b',
+                        },
+                        academic: {
+                            gold: '#b7791f',
+                            teal: '#0d9488',
+                            blue: '#1d4ed8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        .pub-filter-btn.active, .album-filter-btn.active {
+            background-color: #1d4ed8;
+            color: #ffffff;
+        }
+        .dark .pub-filter-btn.active, .dark .album-filter-btn.active {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        .admin-tab-btn.active {
+            border-bottom-color: #1d4ed8;
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+        .dark .admin-tab-btn.active {
+            border-bottom-color: #3b82f6;
+            color: #60a5fa;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans transition-colors duration-300 antialiased">
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 pointer-events-none">
+        <i id="toast-icon" class="fas fa-circle-check text-emerald-400 dark:text-emerald-600 text-lg"></i>
+        <span id="toast-msg" class="text-xs font-semibold">Action completed successfully</span>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="image-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeModal()">
+        <div class="relative max-w-4xl w-full bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" aria-label="Close modal" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modal-img" src="" alt="Enlarged view" class="w-full max-h-[75vh] object-contain bg-slate-950">
+            <div class="p-5">
+                <h4 id="modal-title" class="text-lg font-bold text-slate-900 dark:text-white"></h4>
+                <p id="modal-desc" class="text-sm text-slate-600 dark:text-slate-400 mt-1"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="login-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="max-w-md w-full bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-2xl bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center">
+                        <i class="fas fa-lock text-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-serif text-slate-900 dark:text-white">Admin CMS Login</h3>
+                </div>
+                <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
+                Enter your administrative password to access the website Content Management System.
+            </p>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Password</label>
+                    <input type="password" id="admin-pass-input" placeholder="Enter password" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
+                </div>
+                <p id="login-err" class="text-xs text-red-500 hidden font-semibold"><i class="fas fa-triangle-exclamation mr-1"></i> Incorrect password. Please try again.</p>
+                
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeLoginModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Cancel</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-700 hover:bg-blue-800 text-white transition-colors shadow">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 transition-colors shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-blue-700 text-white flex items-center justify-center font-bold font-serif text-xl group-hover:bg-blue-800 transition-colors shadow-md">
+                    AD
+                </div>
+                <div class="flex flex-col">
+                    <span id="nav-brand-name" class="font-bold text-slate-900 dark:text-white leading-tight text-base">Anupam Das</span>
+                    <span id="nav-brand-title" class="text-xs text-slate-500 dark:text-slate-400 font-serif">Doctor of Veterinary Medicine</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-6 text-xs font-semibold uppercase tracking-wider">
+                <a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About</a>
+                <a href="#education" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Education</a>
+                <a href="#skills" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Skills</a>
+                <a href="#publications" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Publications</a>
+                <a href="#experience" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Experience</a>
+                <a href="#gallery" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Gallery</a>
+                <a href="#references" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">References</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center space-x-2.5">
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block text-amber-400"></i>
+                </button>
+
+                <a id="cv-download-btn" href="Anupam_Das_CV.pdf" download="Anupam_Das_CV.pdf" class="hidden sm:inline-flex items-center space-x-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-blue-700 hover:bg-blue-800 text-white transition-all shadow hover:shadow-md">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>CV (PDF)</span>
+                </a>
+
+                <button onclick="openLoginModal()" class="inline-flex items-center space-x-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 transition-colors shadow">
+                    <i class="fas fa-sliders"></i>
+                    <span class="hidden md:inline">Admin CMS</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" aria-label="Toggle menu" class="lg:hidden p-2 text-slate-600 dark:text-slate-300">
+                    <i id="menu-icon" class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-4 space-y-3">
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-medium py-1 text-slate-700 dark:text-slate-300">About</a>
+            <a href="#education" onclick="toggleMobileMenu()" class="block text-sm font-medium py-1 text-slate-700 dark:text-slate-300">Education</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="block text-sm font-medium py-1 text-slate-700 dark:text-slate-300">Capabilities</a>
+            <a href="#publications" onclick="toggleMobileMenu()" class="block text-sm font-medium py-1 text-slate-700 dark:text-slate-300">Publications</a>
+            <a href="#experience" onclick="toggleMobileMenu()" class="block text-sm font-medium py-1 text-slate-700 dark:text-slate-300">Experience</a>
+            <a href="#gallery" onclick="toggleMobileMenu()" class="block text-sm font-medium py-1 text-slate-700 dark:text-slate-300">Gallery</a>
+            <a href="#references" onclick="toggleMobileMenu()" class="block text-sm font-medium py-1 text-slate-700 dark:text-slate-300">References</a>
+            <a id="mobile-cv-btn" href="Anupam_Das_CV.pdf" download="Anupam_Das_CV.pdf" class="inline-flex w-full justify-center items-center space-x-2 px-4 py-2 text-xs font-semibold rounded-lg bg-blue-700 text-white">
+                <i class="fas fa-file-pdf"></i>
+                <span>Download CV (PDF)</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ADMIN PANEL SECTION (Hidden by default) -->
+    <section id="admin-panel" class="hidden py-8 bg-amber-500/10 border-b border-amber-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-amber-500/30 overflow-hidden">
+                <!-- Admin Header Bar -->
+                <div class="bg-slate-900 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-2 bg-amber-500 text-slate-950 rounded-xl font-bold">
+                            <i class="fas fa-gauge-high"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold">Academic Content Management Portal</h2>
+                            <p class="text-xs text-slate-400">Live editor — changes save automatically to LocalStorage</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <button onclick="closeAdminPanel()" class="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors border border-slate-700">
+                            <i class="fas fa-circle-xmark mr-1"></i> Exit Admin
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Navigation Tabs -->
+                <div class="flex overflow-x-auto border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 text-xs font-semibold">
+                    <button onclick="switchAdminTab('profile', this)" class="admin-tab-btn active px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Profile & Bio</button>
+                    <button onclick="switchAdminTab('education', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Education</button>
+                    <button onclick="switchAdminTab('skills', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Skills</button>
+                    <button onclick="switchAdminTab('publications', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Publications</button>
+                    <button onclick="switchAdminTab('experience', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Experience</button>
+                    <button onclick="switchAdminTab('gallery', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Gallery & Albums</button>
+                    <button onclick="switchAdminTab('references', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">References</button>
+                    <button onclick="switchAdminTab('security', this)" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent hover:text-blue-600 whitespace-nowrap">Admin Password & Reset</button>
+                </div>
+
+                <!-- Admin Tab Content Body -->
+                <div class="p-6 sm:p-8">
+                    
+                    <!-- TAB 1: PROFILE & BIO -->
+                    <div id="admin-tab-profile" class="admin-tab-content space-y-6">
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white pb-2 border-b border-slate-200 dark:border-slate-800">
+                            General Profile Information
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Full Name</label>
+                                <input type="text" id="adm-name" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Academic Titles / Credentials</label>
+                                <input type="text" id="adm-title" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Current Position / Subtitle</label>
+                                <input type="text" id="adm-position" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Institution & Department</label>
+                                <input type="text" id="adm-institution" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Prospective Tagline</label>
+                                <input type="text" id="adm-tagline" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">CV File URL (or local pdf path)</label>
+                                <input type="text" id="adm-cvurl" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                        </div>
+
+                        <!-- Profile Picture Management -->
+                        <div class="space-y-3 pt-2">
+                            <label class="block text-xs font-bold">Profile Picture</label>
+                            <div class="flex items-center space-x-4">
+                                <img id="adm-avatar-preview" src="" alt="Avatar preview" class="w-20 h-20 rounded-2xl object-cover ring-2 ring-blue-600 bg-slate-900">
+                                <div class="space-y-2 flex-1">
+                                    <input type="text" id="adm-avatar-url" placeholder="Image URL (e.g. https://... or local file)" onchange="previewAvatarFromUrl(this.value)" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="text-xs text-slate-500">Or upload image:</span>
+                                        <input type="file" accept="image/*" onchange="uploadAvatarFile(event)" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-xl file:border-0 file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Biography Summary</label>
+                            <textarea id="adm-bio" rows="4" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs"></textarea>
+                        </div>
+
+                        <!-- DYNAMIC SOCIAL & ACADEMIC ACCOUNTS -->
+                        <div class="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Academic & Social Profiles</h4>
+                                    <p class="text-[11px] text-slate-500">Add custom accounts (e.g., Scopus, Web of Science, LinkedIn, ORCID). Logos load automatically.</p>
+                                </div>
+                                <button type="button" onclick="addSocialLinkAdmin()" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors">
+                                    <i class="fas fa-plus mr-1"></i> Add Account
+                                </button>
+                            </div>
+
+                            <div id="adm-social-links-list" class="space-y-3">
+                                <!-- Dynamic links inputs -->
+                            </div>
+                        </div>
+
+                        <button onclick="saveProfileAdmin()" class="px-5 py-2.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold transition-colors">
+                            Save Profile Changes
+                        </button>
+                    </div>
+
+                    <!-- TAB 2: EDUCATION -->
+                    <div id="admin-tab-education" class="admin-tab-content hidden space-y-6">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Manage Academic Degrees</h3>
+                            <button onclick="addEducationAdmin()" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700">
+                                <i class="fas fa-plus mr-1"></i> Add Degree
+                            </button>
+                        </div>
+                        <div id="adm-edu-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- TAB 3: SKILLS -->
+                    <div id="admin-tab-skills" class="admin-tab-content hidden space-y-6">
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white pb-2 border-b border-slate-200 dark:border-slate-800">
+                            Manage Technical Capabilities & Skill Bullet Points
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Category 1 -->
+                            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-3">
+                                <h4 class="text-xs font-bold uppercase text-blue-600">Category 1: Wet-Lab Virology</h4>
+                                <div>
+                                    <label class="block text-xs font-medium mb-1">Title</label>
+                                    <input type="text" id="adm-skill-cat1-title" class="w-full p-2 rounded-xl border text-xs dark:bg-slate-900">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium mb-1">Subtitle</label>
+                                    <input type="text" id="adm-skill-cat1-sub" class="w-full p-2 rounded-xl border text-xs dark:bg-slate-900">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium mb-1">Bullet Points (One per line)</label>
+                                    <textarea id="adm-skill-cat1-bullets" rows="6" class="w-full p-2 rounded-xl border text-xs dark:bg-slate-900"></textarea>
+                                </div>
+                            </div>
+                            <!-- Category 2 -->
+                            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-3">
+                                <h4 class="text-xs font-bold uppercase text-teal-600">Category 2: Computational Bioinformatics</h4>
+                                <div>
+                                    <label class="block text-xs font-medium mb-1">Title</label>
+                                    <input type="text" id="adm-skill-cat2-title" class="w-full p-2 rounded-xl border text-xs dark:bg-slate-900">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium mb-1">Subtitle</label>
+                                    <input type="text" id="adm-skill-cat2-sub" class="w-full p-2 rounded-xl border text-xs dark:bg-slate-900">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium mb-1">Bullet Points (One per line)</label>
+                                    <textarea id="adm-skill-cat2-bullets" rows="6" class="w-full p-2 rounded-xl border text-xs dark:bg-slate-900"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="saveSkillsAdmin()" class="px-5 py-2.5 rounded-xl bg-blue-700 text-white text-xs font-bold">
+                            Save Technical Capabilities
+                        </button>
+                    </div>
+
+                    <!-- TAB 4: PUBLICATIONS -->
+                    <div id="admin-tab-publications" class="admin-tab-content hidden space-y-6">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Manage Publications & Manuscripts</h3>
+                            <button onclick="addPublicationAdmin()" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700">
+                                <i class="fas fa-plus mr-1"></i> Add Manuscript
+                            </button>
+                        </div>
+                        <div id="adm-pub-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- TAB 5: EXPERIENCE -->
+                    <div id="admin-tab-experience" class="admin-tab-content hidden space-y-6">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Manage Research Experience Timeline</h3>
+                            <button onclick="addExperienceAdmin()" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700">
+                                <i class="fas fa-plus mr-1"></i> Add Entry
+                            </button>
+                        </div>
+                        <div id="adm-exp-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- TAB 6: GALLERY & ALBUMS -->
+                    <div id="admin-tab-gallery" class="admin-tab-content hidden space-y-6">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Manage Gallery Photos & Albums</h3>
+                            <button onclick="addGalleryItemAdmin()" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700">
+                                <i class="fas fa-plus mr-1"></i> Add Gallery Photo
+                            </button>
+                        </div>
+                        <div id="adm-gallery-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    </div>
+
+                    <!-- TAB 7: REFERENCES -->
+                    <div id="admin-tab-references" class="admin-tab-content hidden space-y-6">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white">Manage Academic References</h3>
+                            <button onclick="addReferenceAdmin()" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700">
+                                <i class="fas fa-plus mr-1"></i> Add Reference
+                            </button>
+                        </div>
+                        <div id="adm-ref-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- TAB 8: SECURITY & RESET -->
+                    <div id="admin-tab-security" class="admin-tab-content hidden space-y-8 max-w-xl">
+                        <div class="space-y-4">
+                            <h3 class="text-base font-bold text-slate-900 dark:text-white pb-2 border-b border-slate-200 dark:border-slate-800">Change Admin Password</h3>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">New Password</label>
+                                <input type="password" id="adm-new-pass" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <button onclick="changePasswordAdmin()" class="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">
+                                Update Password
+                            </button>
+                        </div>
+
+                        <!-- Password Protected Reset Data Section -->
+                        <div class="p-6 rounded-2xl bg-red-500/10 border border-red-500/30 space-y-4">
+                            <div class="flex items-center space-x-3 text-red-600 dark:text-red-400">
+                                <i class="fas fa-triangle-exclamation text-xl"></i>
+                                <h4 class="text-sm font-bold">Protected Data Reset Options</h4>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-400">
+                                Resetting data will erase custom modifications and restore seed default content. Enter your current password to proceed.
+                            </p>
+                            <div>
+                                <label class="block text-xs font-bold mb-1 text-slate-700 dark:text-slate-300">Confirm Current Password</label>
+                                <input type="password" id="reset-confirm-pass" placeholder="Enter current admin password" class="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+                            </div>
+                            <button onclick="resetDataWithPassword()" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors shadow">
+                                <i class="fas fa-rotate-left mr-1"></i> Reset All Data
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLIC WEBSITE VIEW -->
+    <main class="w-full">
+
+        <!-- SECTION 1: HERO SECTION (#about) -->
+        <section id="about" class="bg-gradient-to-b from-blue-50/60 via-slate-50 to-white dark:from-slate-900/60 dark:via-slate-950 dark:to-slate-950 py-12 md:py-20 border-b border-slate-200 dark:border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+                        <!-- Avatar Display -->
+                        <div class="relative shrink-0">
+                            <div id="avatar-container" class="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden ring-4 ring-blue-600/30 shadow-2xl bg-slate-900 text-white flex items-center justify-center font-serif text-5xl font-bold">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <div class="absolute -bottom-3 -right-3 bg-blue-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center space-x-1.5">
+                                <i class="fas fa-check-circle text-emerald-400"></i>
+                                <span id="pub-hero-badge">DVM, MS</span>
+                            </div>
+                        </div>
+
+                        <!-- Info Header -->
+                        <div class="flex-1 text-center lg:text-left space-y-4">
+                            <div>
+                                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-100/80 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 text-xs font-semibold mb-3">
+                                    <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                                    <span id="pub-hero-tagline">Prospective PhD Student (Fall 2026 / Spring 2027)</span>
+                                </div>
+                                <h1 id="pub-hero-name" class="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-slate-900 dark:text-white tracking-tight">
+                                    Anupam Das
+                                </h1>
+                                <p id="pub-hero-position" class="text-base sm:text-lg font-semibold text-blue-700 dark:text-blue-400 mt-1">
+                                    Research Assistant in Molecular Virology & Viral Genomics
+                                </p>
+                                <p id="pub-hero-institution" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                    Department of Microbiology and Hygiene, Bangladesh Agricultural University (BAU)
+                                </p>
+                            </div>
+
+                            <!-- Bio Summary -->
+                            <p id="pub-hero-bio" class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
+                                Veterinary Virologist with comprehensive training in molecular diagnostic virology, viral isolation, and computational genomics. My research spans field outbreak surveillance, full-genome NGS assembly, phylogenetics, selection pressure, and recombination dynamics in high-impact avian and zoonotic viruses.
+                            </p>
+
+                            <!-- Focus Tags -->
+                            <div class="flex flex-wrap justify-center lg:justify-start gap-2 pt-1">
+                                <span class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium border border-slate-200 dark:border-slate-700">
+                                    <i class="fas fa-virus mr-1.5 text-blue-500"></i> Molecular Virology
+                                </span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium border border-slate-200 dark:border-slate-700">
+                                    <i class="fas fa-dna mr-1.5 text-teal-500"></i> NGS Viral Genomics
+                                </span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium border border-slate-200 dark:border-slate-700">
+                                    <i class="fas fa-diagram-project mr-1.5 text-purple-500"></i> Viral Evolution & Recombination
+                                </span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium border border-slate-200 dark:border-slate-700">
+                                    <i class="fas fa-shield-virus mr-1.5 text-amber-500"></i> Host-Pathogen Interactions
+                                </span>
+                            </div>
+
+                            <!-- Dynamic Action Links Buttons -->
+                            <div id="pub-hero-links" class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-3">
+                                <!-- Dynamic Render -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: ACADEMIC CREDENTIALS (#education) [DISTINCT LIGHT BG] -->
+        <section id="education" class="py-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                    <div class="p-3 rounded-2xl bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">
+                        <i class="fas fa-user-graduate text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Academic Background</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold font-serif text-slate-900 dark:text-white">Academic Credentials</h2>
+                    </div>
+                </div>
+
+                <div id="pub-edu-container" class="grid md:grid-cols-2 gap-8">
+                    <!-- Dynamic rendering -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: TECHNICAL CAPABILITIES (#skills) [NO SKILL BARS - BULLETED CARDS] -->
+        <section id="skills" class="py-16 bg-slate-100/70 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                    <div class="p-3 rounded-2xl bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300">
+                        <i class="fas fa-microscope text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400">Core Expertise</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold font-serif text-slate-900 dark:text-white">Technical Capabilities</h2>
+                    </div>
+                </div>
+
+                <div id="pub-skills-container" class="grid md:grid-cols-2 gap-8">
+                    <!-- Dynamic rendering -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: PUBLICATIONS & MANUSCRIPTS (#publications) [CLEAN FILTERABLE NO COPY CITATION] -->
+        <section id="publications" class="py-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">
+                            <i class="fas fa-book-bookmark text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Scholarly Output</span>
+                            <h2 class="text-2xl sm:text-3xl font-bold font-serif text-slate-900 dark:text-white">Publications & Manuscripts</h2>
+                        </div>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="relative w-full md:w-80">
+                        <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="pub-search" oninput="renderPublicPublications()" placeholder="Search title, journal, or pathogen..." class="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                    </div>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <button onclick="setPubFilter('all', this)" class="pub-filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-colors">All Manuscripts</button>
+                    <button onclick="setPubFilter('under_review', this)" class="pub-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Under Review</button>
+                    <button onclick="setPubFilter('published', this)" class="pub-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Published</button>
+                    <button onclick="setPubFilter('avian', this)" class="pub-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">Avian Viruses</button>
+                </div>
+
+                <!-- Publications List -->
+                <div id="publications-list" class="space-y-4">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: RESEARCH EXPERIENCE (#experience) [TIMELINE - DISTINCT BG] -->
+        <section id="experience" class="py-16 bg-slate-100/70 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                    <div class="p-3 rounded-2xl bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">
+                        <i class="fas fa-briefcase text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Career Trajectory</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold font-serif text-slate-900 dark:text-white">Research Experience & Appointments</h2>
+                    </div>
+                </div>
+
+                <!-- Timeline Container -->
+                <div id="pub-exp-container" class="relative border-l-2 border-slate-300 dark:border-slate-800 ml-4 sm:ml-8 space-y-8">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: FIELDWORK & MEDIA GALLERY (#gallery) [ALBUMS + MEDIA] -->
+        <section id="gallery" class="py-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-3 rounded-2xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">
+                            <i class="fas fa-images text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Academic Gallery</span>
+                            <h2 class="text-2xl sm:text-3xl font-bold font-serif text-slate-900 dark:text-white">Fieldwork & Media Gallery</h2>
+                        </div>
+                    </div>
+
+                    <!-- Album Filter Buttons Container -->
+                    <div id="gallery-album-filters" class="flex flex-wrap gap-2">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <div id="pub-gallery-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: ACADEMIC REFERENCES (#references) [DISTINCT BG] -->
+        <section id="references" class="py-16 bg-slate-100/70 dark:bg-slate-950">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+                    <div class="p-3 rounded-2xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300">
+                        <i class="fas fa-quote-left text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Recommenders</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold font-serif text-slate-900 dark:text-white">Academic References</h2>
+                    </div>
+                </div>
+
+                <div id="pub-ref-container" class="grid md:grid-cols-2 gap-8">
+                    <!-- Dynamic rendering -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4">
+            <div>
+                <p id="footer-name" class="font-bold text-slate-800 dark:text-slate-200 text-sm">Anupam Das, DVM, MS</p>
+                <p id="footer-title" class="mt-0.5">Prospective PhD Student | Molecular Virology & Viral Genomics</p>
+            </div>
+            <p>&copy; 2026 Anupam Das. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // DEFAULT SEED DATA
+        const defaultData = {
+            adminPassword: "admin123",
+            profile: {
+                name: "Anupam Das",
+                title: "DVM, MS",
+                position: "Research Assistant in Molecular Virology & Viral Genomics",
+                institution: "Department of Microbiology and Hygiene, Bangladesh Agricultural University (BAU)",
+                tagline: "Prospective PhD Student (Fall 2026 / Spring 2027)",
+                cvUrl: "Anupam_Das_CV.pdf",
+                avatarUrl: "", // Blank defaults to AD initial placeholder
+                bio: "Veterinary Virologist with comprehensive training in molecular diagnostic virology, viral isolation, and computational genomics. My research spans field outbreak surveillance, full-genome NGS assembly, phylogenetics, selection pressure, and recombination dynamics in high-impact avian and zoonotic viruses. Committed to pursuing advanced PhD research in virus evolution, host-pathogen interactions, and emerging infectious disease prevention.",
+                socialLinks: [
+                    { id: 1, name: "Email", url: "mailto:anupam.das.vet@gmail.com" },
+                    { id: 2, name: "Google Scholar", url: "https://scholar.google.com" },
+                    { id: 3, name: "ORCID", url: "https://orcid.org" },
+                    { id: 4, name: "LinkedIn", url: "https://linkedin.com" },
+                    { id: 5, name: "Scopus", url: "https://scopus.com" },
+                    { id: 6, name: "Web of Science", url: "https://webofscience.com" }
+                ]
+            },
+            education: [
+                {
+                    id: 1,
+                    degree: "Master of Science (M.S.) in Microbiology",
+                    institution: "Bangladesh Agricultural University (BAU), Mymensingh",
+                    period: "2025 – 2026",
+                    cgpa: "3.83 / 4.00 (Up to 2nd Sem)",
+                    description: "Thesis: Molecular detection and complete genomic characterization of fowl adenovirus (FAdV) strains circulating in poultry in Bangladesh. Advisor: Prof. Dr. Md. Golzar Hossain."
+                },
+                {
+                    id: 2,
+                    degree: "Doctor of Veterinary Medicine (DVM)",
+                    institution: "Bangladesh Agricultural University (BAU), Mymensingh",
+                    period: "2018 – 2025",
+                    cgpa: "3.312 / 4.00",
+                    description: "Registered Veterinarian (BVC Reg No: 9682). 5-year professional veterinary program covering infectious disease pathology, epidemiology, clinical diagnostics, and diagnostic internship."
+                }
+            ],
+            skills: {
+                category1: {
+                    title: "In Vitro & Wet-Lab Virology",
+                    subtitle: "Diagnostic Benchwork & Viral Culture",
+                    bullets: [
+                        "Viral Isolation & Culture: Embryonated Chicken Egg (ECE) inoculation (amniotic, allantoic, CAM routes), primary cell culture maintenance, cytopathic effect (CPE) monitoring.",
+                        "Serology & Titration: Hemagglutination (HA) and HA Inhibition (HI) assays, viral infectivity titration (EID50, ELD50 calculations), indirect and sandwich ELISA assays.",
+                        "Molecular Assays: Viral DNA/RNA extraction (spin-column and magnetic bead), PCR, RT-qPCR, gradient PCR, agarose gel electrophoresis, gel documentation.",
+                        "Biosafety & Sample Processing: BSL-2 laboratory procedures, field sample processing from poultry/livestock tissue, aseptic technique, cold-chain maintenance."
+                    ]
+                },
+                category2: {
+                    title: "Computational & Viral Bioinformatics",
+                    subtitle: "NGS Analysis & Evolutionary Modeling",
+                    bullets: [
+                        "NGS Genome Assembly & Annotation: Full-length viral genome assembly (SPAdes, MEGAHIT), quality filtering (FastQC, Trimmomatic), gene prediction, genome annotation (Prokka, NCBI).",
+                        "Phylogenetics & Evolutionary Dynamics: Maximum Likelihood and Bayesian phylogenetic tree construction (IQ-TREE, MEGA, BEAST), tree visualization (FigTree, iTOL).",
+                        "Recombination & Selection Pressure: Recombination detection suite (RDP4/RDP5), site-specific selection pressure analysis (HYPHY, dN/dS calculations, MEME, FEL, FUBAR).",
+                        "Vaccinology & Computational Tools: Subtractive genomics, immunoinformatics vaccine design, Linux shell scripting, Python & R data visualization."
+                    ]
+                }
+            },
+            publications: [
+                {
+                    id: 1,
+                    title: "Evolutionary Genomics of Fowl Adenovirus-E Serotype 8b Isolated from Commercial Broiler Outbreaks in Bangladesh",
+                    authors: "Anupam Das, M. S. Islam, S. Akter, M. G. Hossain",
+                    journal: "Virology (Manuscript Under Review)",
+                    year: "2026",
+                    category: "under_review",
+                    tags: "avian, under_review",
+                    isFirstAuthor: true,
+                    doi: ""
+                },
+                {
+                    id: 2,
+                    title: "Reassortant Highly Pathogenicity H5N1 Genotype G1.1 Isolated from Poultry Outbreaks in Bangladesh: Molecular Characterization and Phylodynamics",
+                    authors: "Anupam Das, R. Parvin, M. G. Hossain",
+                    journal: "Poultry Science (Manuscript Under Review)",
+                    year: "2026",
+                    category: "under_review",
+                    tags: "avian, under_review",
+                    isFirstAuthor: true,
+                    doi: ""
+                },
+                {
+                    id: 3,
+                    title: "Genomic Diversity and Evolutionary Dynamics of Circulating Human Papillomavirus Genotypes: A Comparative Structural Analysis",
+                    authors: "Anupam Das, T. A. Khan, S. Akter",
+                    journal: "Journal of Infection and Public Health (Manuscript Under Review)",
+                    year: "2026",
+                    category: "under_review",
+                    tags: "under_review",
+                    isFirstAuthor: true,
+                    doi: ""
+                },
+                {
+                    id: 4,
+                    title: "Complete Genome Sequencing of Occult Hepatitis B Virus in Hemodialysis Patients in Bangladesh",
+                    authors: "M. S. Rahman, Anupam Das, S. Akter, M. G. Hossain",
+                    journal: "International Journal of Microbiology",
+                    year: "2026",
+                    category: "published",
+                    tags: "published",
+                    isFirstAuthor: false,
+                    doi: "10.1155/2026/ijm.991204"
+                },
+                {
+                    id: 5,
+                    title: "Complete genome sequencing of the fowlpox virus vaccine strain isolated in Bangladesh",
+                    authors: "Anupam Das, S. Akter, M. G. Hossain",
+                    journal: "Microbiology Resource Announcements",
+                    year: "2026",
+                    category: "published",
+                    tags: "avian, published",
+                    isFirstAuthor: true,
+                    doi: "10.1128/mra.00210-26"
+                },
+                {
+                    id: 6,
+                    title: "First complete genome of a fowlpox virus isolated in Bangladesh: Structural and evolutionary insights",
+                    authors: "Anupam Das, S. Akter, M. G. Hossain",
+                    journal: "Microbiology Spectrum",
+                    year: "2026",
+                    category: "published",
+                    tags: "avian, published",
+                    isFirstAuthor: true,
+                    doi: "10.1128/spectrum.01045-26"
+                }
+            ],
+            experience: [
+                {
+                    id: 1,
+                    role: "Research Assistant",
+                    institution: "Viral Genomics & Infection Dynamics Lab, Dept. of Microbiology and Hygiene, BAU",
+                    period: "2024 – Present",
+                    badge: "Current Appointment",
+                    bullets: [
+                        "Leading molecular diagnostic surveillance and NGS characterization of Fowl Adenovirus (FAdV) and Avian Influenza Virus (AIV) outbreaks.",
+                        "Executing full genome assembly pipelines (SPAdes, MEGAHIT), selection pressure estimation (HyPhy), and recombination mapping (RDP5).",
+                        "Co-supervising undergraduate veterinary students in molecular diagnostic assays (RT-qPCR, gel electrophoresis)."
+                    ]
+                },
+                {
+                    id: 2,
+                    role: "SAKURA Science Exchange Program Fellow",
+                    institution: "Japan Science and Technology Agency (JST), Japan (SSC ID: 24101499)",
+                    period: "March 2026",
+                    badge: "International Fellowship",
+                    bullets: [
+                        "Awarded prestigious international research fellowship under JST (Japan).",
+                        "Participated in advanced biotechnology training, high-throughput sequencing technologies, and cross-border research collaborations in viral disease containment."
+                    ]
+                },
+                {
+                    id: 3,
+                    role: "Research Assistant",
+                    institution: "Livestock Research Institute (LRI), Department of Livestock Services (DLS)",
+                    period: "2025 – Present",
+                    badge: "Institutional Role",
+                    bullets: [
+                        "Assisting in livestock viral vaccine quality control, seed virus maintenance, and field diagnostic ELISA testing for viral diseases."
+                    ]
+                },
+                {
+                    id: 4,
+                    role: "Research Intern",
+                    institution: "BLRI & Central Disease Investigation Laboratory (CDIL), Dhaka",
+                    period: "Oct – Nov 2024",
+                    badge: "Internship",
+                    bullets: [
+                        "Rotated through outbreak response teams, epidemiological data gathering, and diagnostic necropsy for livestock viral outbreaks."
+                    ]
+                }
+            ],
+            gallery: [
+                {
+                    id: 1,
+                    album: "Lab Work",
+                    title: "BAU Molecular Virology Lab Work",
+                    category: "Wet Lab Research",
+                    imgUrl: "https://placehold.co/600x400/102a43/ffffff?text=BAU+Molecular+Virology+Lab",
+                    caption: "Performing molecular diagnostic RT-qPCR assays and nucleic acid extractions at BAU."
+                },
+                {
+                    id: 2,
+                    album: "Fellowships",
+                    title: "SAKURA Science Program (Japan)",
+                    category: "International Fellowship",
+                    imgUrl: "https://placehold.co/600x400/0d9488/ffffff?text=Japan+SAKURA+Exchange",
+                    caption: "Participating in advanced viral genomic workshops under JST in Japan."
+                },
+                {
+                    id: 3,
+                    album: "Conferences",
+                    title: "BSVER ASCon XXXII Presentation",
+                    category: "Conference Presentation",
+                    imgUrl: "https://placehold.co/600x400/b7791f/ffffff?text=BSVER+ASCon+XXXII+Presentation",
+                    caption: "Delivering research talk on Fowl Adenovirus strain surveillance in Bangladesh."
+                }
+            ],
+            references: [
+                {
+                    id: 1,
+                    name: "Dr. Md. Golzar Hossain",
+                    title: "Professor & MS Thesis Advisor",
+                    dept: "Department of Microbiology and Hygiene\nFaculty of Veterinary Science\nBangladesh Agricultural University (BAU), Mymensingh-2202",
+                    email: "mhossain@bau.edu.bd",
+                    badge: "Primary Advisor"
+                },
+                {
+                    id: 2,
+                    name: "Dr. Sharmin Akter",
+                    title: "Professor",
+                    dept: "Department of Microbiology and Hygiene\nFaculty of Veterinary Science\nBangladesh Agricultural University (BAU), Mymensingh-2202",
+                    email: "sharmin.akter@bau.edu.bd",
+                    badge: "Academic Ref"
+                }
+            ]
+        };
+
+        // LOAD APP DATA FROM LOCALSTORAGE OR SEED
+        let appData = JSON.parse(localStorage.getItem('anupam_portfolio_cms_db')) || defaultData;
+
+        // Fallback migration for existing databases without socialLinks array
+        if (!appData.profile.socialLinks) {
+            appData.profile.socialLinks = defaultData.profile.socialLinks;
+        }
+
+        function saveAppData() {
+            localStorage.setItem('anupam_portfolio_cms_db', JSON.stringify(appData));
+            renderAllPublicSections();
+            showToast('Changes saved & published live!');
+        }
+
+        function resetDataWithPassword() {
+            const passInput = document.getElementById('reset-confirm-pass').value;
+            if (passInput === (appData.adminPassword || "admin123")) {
+                if (confirm("Are you sure you want to reset all data back to original defaults? All customized content will be lost.")) {
+                    appData = JSON.parse(JSON.stringify(defaultData));
+                    saveAppData();
+                    renderAdminPortal();
+                    document.getElementById('reset-confirm-pass').value = '';
+                    showToast('Database reset successfully!');
+                }
+            } else {
+                alert('Incorrect current password. Data reset cancelled.');
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function openModal(imgSrc, title, desc) {
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('image-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('image-modal').classList.add('hidden');
+        }
+
+        // AUTH & ADMIN MODAL LOGIC
+        function openLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('admin-pass-input').value = '';
+            document.getElementById('login-err').classList.add('hidden');
+            document.getElementById('admin-pass-input').focus();
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.add('hidden');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('admin-pass-input').value;
+            if (pass === (appData.adminPassword || "admin123")) {
+                closeLoginModal();
+                openAdminPanel();
+            } else {
+                document.getElementById('login-err').classList.remove('hidden');
+            }
+        }
+
+        function openAdminPanel() {
+            document.getElementById('admin-panel').classList.remove('hidden');
+            renderAdminPortal();
+            window.scrollTo({ top: document.getElementById('admin-panel').offsetTop - 70, behavior: 'smooth' });
+            showToast('Welcome to Admin CMS');
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').classList.add('hidden');
+        }
+
+        function switchAdminTab(tabKey, btn) {
+            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.add('hidden'));
+            btn.classList.add('active');
+            document.getElementById(`admin-tab-${tabKey}`).classList.remove('hidden');
+        }
+
+        let activePubFilter = 'all';
+        let activeGalleryAlbum = 'all';
+
+        // ICON MAPPER FOR DYNAMIC ACCOUNTS
+        function getIconForAccount(name) {
+            const lower = name.toLowerCase();
+            if (lower.includes('email') || lower.includes('mail')) return 'fas fa-envelope text-red-500';
+            if (lower.includes('scholar')) return 'fas fa-graduation-cap text-blue-600';
+            if (lower.includes('orcid')) return 'fab fa-orcid text-emerald-600';
+            if (lower.includes('linkedin')) return 'fab fa-linkedin text-blue-700';
+            if (lower.includes('scopus')) return 'fas fa-book-journal-whills text-orange-500';
+            if (lower.includes('web of science') || lower.includes('wos')) return 'fas fa-globe text-amber-600';
+            if (lower.includes('researchgate')) return 'fab fa-researchgate text-teal-600';
+            if (lower.includes('github')) return 'fab fa-github text-slate-800 dark:text-slate-200';
+            if (lower.includes('twitter') || lower.includes('x')) return 'fab fa-x-twitter text-slate-800 dark:text-slate-200';
+            return 'fas fa-link text-blue-500';
+        }
+
+        function renderAllPublicSections() {
+            // Profile & Hero
+            const p = appData.profile;
+            document.getElementById('nav-brand-name').innerText = p.name;
+            document.getElementById('nav-brand-title').innerText = `${p.title} | Virologist`;
+            document.getElementById('footer-name').innerText = `${p.name}, ${p.title}`;
+            document.getElementById('footer-title').innerText = p.position;
+
+            document.getElementById('pub-hero-name').innerText = p.name;
+            document.getElementById('pub-hero-position').innerText = p.position;
+            document.getElementById('pub-hero-institution').innerText = p.institution;
+            document.getElementById('pub-hero-tagline').innerText = p.tagline;
+            document.getElementById('pub-hero-bio').innerText = p.bio;
+            document.getElementById('pub-hero-badge').innerText = p.title;
+
+            document.getElementById('cv-download-btn').href = p.cvUrl || '#';
+            document.getElementById('mobile-cv-btn').href = p.cvUrl || '#';
+
+            // Dynamic Hero Social/Academic Links Render
+            const heroLinksContainer = document.getElementById('pub-hero-links');
+            if (p.socialLinks && p.socialLinks.length > 0) {
+                heroLinksContainer.innerHTML = p.socialLinks.map(link => `
+                    <a href="${link.url}" target="_blank" rel="noopener" class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium transition-colors border border-slate-200 dark:border-slate-700">
+                        <i class="${getIconForAccount(link.name)}"></i>
+                        <span>${link.name}</span>
+                    </a>
+                `).join('');
+            } else {
+                heroLinksContainer.innerHTML = '';
+            }
+
+            // Avatar render
+            const avatarContainer = document.getElementById('avatar-container');
+            if (p.avatarUrl) {
+                avatarContainer.innerHTML = `<img src="${p.avatarUrl}" alt="${p.name}" class="w-full h-full object-cover">`;
+            } else {
+                avatarContainer.innerHTML = `<span>AD</span>`;
+            }
+
+            // Education Render
+            const eduContainer = document.getElementById('pub-edu-container');
+            eduContainer.innerHTML = appData.education.map((edu, idx) => `
+                <div class="glass-card rounded-2xl p-6 sm:p-8 relative flex flex-col justify-between border-l-4 ${idx === 0 ? 'border-l-blue-600' : 'border-l-teal-600'} hover:shadow-xl transition-shadow">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="px-3 py-1 rounded-full ${idx === 0 ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-200' : 'bg-teal-100 text-teal-800 dark:bg-teal-950 dark:text-teal-200'} text-xs font-bold">
+                                ${edu.period}
+                            </span>
+                            <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
+                                CGPA: ${edu.cgpa}
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">${edu.degree}</h3>
+                        <p class="text-sm font-semibold text-slate-600 dark:text-slate-300 mt-1">${edu.institution}</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">${edu.description}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Skills Render (Clean Card Bullets - NO SKILL BARS)
+            const skillsContainer = document.getElementById('pub-skills-container');
+            const cat1 = appData.skills.category1;
+            const cat2 = appData.skills.category2;
+
+            skillsContainer.innerHTML = `
+                <!-- Cat 1 -->
+                <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-5 border-t-4 border-t-blue-600 shadow-md">
+                    <div class="flex items-center space-x-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+                        <div class="p-2.5 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">
+                            <i class="fas fa-vial text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">${cat1.title}</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">${cat1.subtitle}</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-700 dark:text-slate-300">
+                        ${cat1.bullets.map(b => `
+                            <li class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-blue-600 dark:text-blue-400 mt-1 shrink-0 text-xs"></i>
+                                <span>${b}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <!-- Cat 2 -->
+                <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-5 border-t-4 border-t-teal-600 shadow-md">
+                    <div class="flex items-center space-x-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+                        <div class="p-2.5 rounded-xl bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300">
+                            <i class="fas fa-laptop-code text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">${cat2.title}</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">${cat2.subtitle}</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-700 dark:text-slate-300">
+                        ${cat2.bullets.map(b => `
+                            <li class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-teal-600 dark:text-teal-400 mt-1 shrink-0 text-xs"></i>
+                                <span>${b}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+
+            // Render Experience Timeline
+            const expContainer = document.getElementById('pub-exp-container');
+            expContainer.innerHTML = appData.experience.map(exp => `
+                <div class="relative pl-6 sm:pl-10 group">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-slate-100 dark:ring-slate-950 group-hover:scale-125 transition-transform"></div>
+                    <div class="glass-card rounded-2xl p-6 shadow-md border-l-4 border-l-blue-600">
+                        <div class="flex flex-wrap justify-between items-start gap-2">
+                            <div>
+                                ${exp.badge ? `<span class="px-2.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 text-xs font-bold">${exp.badge}</span>` : ''}
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">${exp.role}</h3>
+                                <p class="text-xs font-semibold text-blue-700 dark:text-blue-400">${exp.institution}</p>
+                            </div>
+                            <span class="text-xs font-bold text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
+                                ${exp.period}
+                            </span>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300 list-disc list-inside">
+                            ${exp.bullets.map(b => `<li>${b}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render References
+            const refContainer = document.getElementById('pub-ref-container');
+            refContainer.innerHTML = appData.references.map((ref, idx) => `
+                <div class="glass-card rounded-2xl p-6 sm:p-8 border-t-4 ${idx === 0 ? 'border-t-blue-600' : 'border-t-teal-600'} shadow-md">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">${ref.name}</h3>
+                    <p class="text-xs font-bold ${idx === 0 ? 'text-blue-700 dark:text-blue-400' : 'text-teal-700 dark:text-teal-400'} mt-0.5">${ref.title}</p>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 whitespace-pre-line leading-relaxed">${ref.dept}</p>
+                    <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <a href="mailto:${ref.email}" class="inline-flex items-center space-x-2 text-xs font-semibold text-blue-700 dark:text-blue-400 hover:underline">
+                            <i class="fas fa-envelope"></i>
+                            <span>${ref.email}</span>
+                        </a>
+                        <span class="text-[10px] px-2.5 py-1 ${idx === 0 ? 'bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300' : 'bg-teal-100 dark:bg-teal-950 text-teal-800 dark:text-teal-300'} rounded-full font-bold">${ref.badge || 'Reference'}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            renderPublicPublications();
+            renderPublicGallery();
+        }
+
+        // Render Public Publications
+        function renderPublicPublications() {
+            const listContainer = document.getElementById('publications-list');
+            const searchVal = document.getElementById('pub-search').value.toLowerCase();
+
+            const filtered = appData.publications.filter(pub => {
+                const matchesFilter = activePubFilter === 'all' || 
+                                     (activePubFilter === 'under_review' && pub.category === 'under_review') ||
+                                     (activePubFilter === 'published' && pub.category === 'published') ||
+                                     (activePubFilter === 'avian' && (pub.tags || '').includes('avian'));
+
+                const matchesSearch = pub.title.toLowerCase().includes(searchVal) ||
+                                      pub.journal.toLowerCase().includes(searchVal) ||
+                                      pub.authors.toLowerCase().includes(searchVal);
+
+                return matchesFilter && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-12 glass-card rounded-2xl">
+                        <i class="fas fa-search text-3xl text-slate-400 mb-2"></i>
+                        <p class="text-sm font-medium text-slate-600 dark:text-slate-400">No matching manuscripts found.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listContainer.innerHTML = filtered.map(pub => `
+                <div class="glass-card rounded-2xl p-6 hover:shadow-lg transition-all duration-200 border border-slate-200 dark:border-slate-800">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                pub.category === 'under_review' 
+                                ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' 
+                                : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                            }">
+                                ${pub.category === 'under_review' ? 'Under Review' : 'Published'}
+                            </span>
+
+                            ${pub.isFirstAuthor ? `
+                                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">
+                                    First Author
+                                </span>
+                            ` : ''}
+
+                            <span class="text-xs font-bold text-slate-400">${pub.year}</span>
+                        </div>
+                        
+                        ${pub.doi ? `
+                            <a href="https://doi.org/${pub.doi}" target="_blank" rel="noopener" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center space-x-1">
+                                <span>DOI: ${pub.doi}</span>
+                                <i class="fas fa-external-link-alt text-[10px]"></i>
+                            </a>
+                        ` : ''}
+                    </div>
+
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-3 leading-snug">
+                        ${pub.title}
+                    </h3>
+
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium mt-1.5">
+                        ${pub.authors.replace('Anupam Das', '<strong class="text-blue-700 dark:text-blue-400 underline decoration-blue-500/40">Anupam Das</strong>')}
+                    </p>
+
+                    <p class="text-xs italic text-slate-500 dark:text-slate-400 mt-1">
+                        ${pub.journal}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        function setPubFilter(filter, btn) {
+            activePubFilter = filter;
+            document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderPublicPublications();
+        }
+
+        // Render Public Gallery and Albums
+        function renderPublicGallery() {
+            const albumContainer = document.getElementById('gallery-album-filters');
+            const galleryContainer = document.getElementById('pub-gallery-container');
+
+            // Unique Albums
+            const albums = ['all', ...new Set(appData.gallery.map(g => g.album || 'General'))];
+            albumContainer.innerHTML = albums.map(a => `
+                <button onclick="setGalleryAlbum('${a}', this)" class="album-filter-btn ${activeGalleryAlbum === a ? 'active' : ''} px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
+                    ${a === 'all' ? 'All Photos' : a}
+                </button>
+            `).join('');
+
+            const filtered = appData.gallery.filter(g => activeGalleryAlbum === 'all' || (g.album || 'General') === activeGalleryAlbum);
+
+            if (filtered.length === 0) {
+                galleryContainer.innerHTML = `<p class="col-span-full text-xs text-slate-500 italic">No gallery photos in this album.</p>`;
+                return;
+            }
+
+            galleryContainer.innerHTML = filtered.map(item => `
+                <div onclick="openModal('${item.imgUrl}', '${item.title}', '${item.caption}')" class="glass-card rounded-2xl overflow-hidden cursor-pointer group hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-800">
+                    <div class="h-48 overflow-hidden relative bg-slate-900">
+                        <img src="${item.imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-medium text-xs space-x-2">
+                            <i class="fas fa-search-plus"></i>
+                            <span>Expand View</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-blue-600 dark:text-blue-400">${item.category || 'Photo'}</span>
+                            <span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-500 font-semibold">${item.album || 'General'}</span>
+                        </div>
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white mt-1">${item.title}</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">${item.caption}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setGalleryAlbum(album, btn) {
+            activeGalleryAlbum = album;
+            document.querySelectorAll('.album-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderPublicGallery();
+        }
+
+        function renderAdminPortal() {
+            // Fill Profile
+            const p = appData.profile;
+            document.getElementById('adm-name').value = p.name;
+            document.getElementById('adm-title').value = p.title;
+            document.getElementById('adm-position').value = p.position;
+            document.getElementById('adm-institution').value = p.institution;
+            document.getElementById('adm-tagline').value = p.tagline;
+            document.getElementById('adm-cvurl').value = p.cvUrl;
+            document.getElementById('adm-avatar-url').value = p.avatarUrl;
+            document.getElementById('adm-bio').value = p.bio;
+
+            previewAvatarFromUrl(p.avatarUrl);
+            renderSocialLinksAdminList();
+
+            // Fill Skills Admin
+            const cat1 = appData.skills.category1;
+            const cat2 = appData.skills.category2;
+            document.getElementById('adm-skill-cat1-title').value = cat1.title;
+            document.getElementById('adm-skill-cat1-sub').value = cat1.subtitle;
+            document.getElementById('adm-skill-cat1-bullets').value = cat1.bullets.join('\n');
+
+            document.getElementById('adm-skill-cat2-title').value = cat2.title;
+            document.getElementById('adm-skill-cat2-sub').value = cat2.subtitle;
+            document.getElementById('adm-skill-cat2-bullets').value = cat2.bullets.join('\n');
+
+            // Render Admin Dynamic Lists
+            renderEducationAdminList();
+            renderPublicationsAdminList();
+            renderExperienceAdminList();
+            renderGalleryAdminList();
+            renderReferencesAdminList();
+        }
+
+        // SOCIAL / ACADEMIC LINKS ADMIN MANAGER
+        function renderSocialLinksAdminList() {
+            const listContainer = document.getElementById('adm-social-links-list');
+            const links = appData.profile.socialLinks || [];
+
+            listContainer.innerHTML = links.map(link => `
+                <div class="flex items-center space-x-3 bg-slate-50 dark:bg-slate-800 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <div class="w-8 h-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0">
+                        <i class="${getIconForAccount(link.name)}"></i>
+                    </div>
+                    <input type="text" value="${link.name}" onchange="updateSocialLinkField(${link.id}, 'name', this.value)" placeholder="Platform (e.g., Scopus)" class="w-1/3 p-2 text-xs rounded-xl border dark:bg-slate-900 font-medium">
+                    <input type="text" value="${link.url}" onchange="updateSocialLinkField(${link.id}, 'url', this.value)" placeholder="URL / Mailto" class="flex-1 p-2 text-xs rounded-xl border dark:bg-slate-900">
+                    <button type="button" onclick="deleteSocialLinkAdmin(${link.id})" class="p-2 text-red-500 hover:text-red-700 shrink-0">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateSocialLinkField(id, field, val) {
+            const link = appData.profile.socialLinks.find(l => l.id === id);
+            if (link) {
+                link[field] = val;
+                saveAppData();
+                renderSocialLinksAdminList();
+            }
+        }
+
+        function addSocialLinkAdmin() {
+            const newId = Date.now();
+            appData.profile.socialLinks.push({ id: newId, name: "Scopus", url: "https://scopus.com" });
+            saveAppData();
+            renderSocialLinksAdminList();
+        }
+
+        function deleteSocialLinkAdmin(id) {
+            appData.profile.socialLinks = appData.profile.socialLinks.filter(l => l.id !== id);
+            saveAppData();
+            renderSocialLinksAdminList();
+        }
+
+        function previewAvatarFromUrl(url) {
+            const prev = document.getElementById('adm-avatar-preview');
+            if (url) {
+                prev.src = url;
+            } else {
+                prev.src = "https://placehold.co/150x150/102a43/ffffff?text=AD";
+            }
+        }
+
+        function uploadAvatarFile(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const dataUrl = evt.target.result;
+                    document.getElementById('adm-avatar-url').value = dataUrl;
+                    previewAvatarFromUrl(dataUrl);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveProfileAdmin() {
+            appData.profile.name = document.getElementById('adm-name').value;
+            appData.profile.title = document.getElementById('adm-title').value;
+            appData.profile.position = document.getElementById('adm-position').value;
+            appData.profile.institution = document.getElementById('adm-institution').value;
+            appData.profile.tagline = document.getElementById('adm-tagline').value;
+            appData.profile.cvUrl = document.getElementById('adm-cvurl').value;
+            appData.profile.avatarUrl = document.getElementById('adm-avatar-url').value;
+            appData.profile.bio = document.getElementById('adm-bio').value;
+            saveAppData();
+        }
+
+        function saveSkillsAdmin() {
+            appData.skills.category1.title = document.getElementById('adm-skill-cat1-title').value;
+            appData.skills.category1.subtitle = document.getElementById('adm-skill-cat1-sub').value;
+            appData.skills.category1.bullets = document.getElementById('adm-skill-cat1-bullets').value.split('\n').filter(b => b.trim() !== '');
+
+            appData.skills.category2.title = document.getElementById('adm-skill-cat2-title').value;
+            appData.skills.category2.subtitle = document.getElementById('adm-skill-cat2-sub').value;
+            appData.skills.category2.bullets = document.getElementById('adm-skill-cat2-bullets').value.split('\n').filter(b => b.trim() !== '');
+
+            saveAppData();
+        }
+
+        // Education Admin
+        function renderEducationAdminList() {
+            const list = document.getElementById('adm-edu-list');
+            list.innerHTML = appData.education.map((edu, idx) => `
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-3 border border-slate-200 dark:border-slate-700">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-blue-600">Degree #${idx + 1}</span>
+                        <button onclick="deleteEducationAdmin(${edu.id})" class="text-xs text-red-500 font-bold hover:underline"><i class="fas fa-trash mr-1"></i>Delete</button>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <input type="text" value="${edu.degree}" onchange="updateEduField(${edu.id}, 'degree', this.value)" placeholder="Degree Title" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${edu.institution}" onchange="updateEduField(${edu.id}, 'institution', this.value)" placeholder="Institution" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${edu.period}" onchange="updateEduField(${edu.id}, 'period', this.value)" placeholder="Period (e.g. 2025-2026)" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${edu.cgpa}" onchange="updateEduField(${edu.id}, 'cgpa', this.value)" placeholder="CGPA" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                    </div>
+                    <textarea onchange="updateEduField(${edu.id}, 'description', this.value)" rows="2" placeholder="Description/Thesis" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900">${edu.description}</textarea>
+                </div>
+            `).join('');
+        }
+
+        function updateEduField(id, field, val) {
+            const item = appData.education.find(e => e.id === id);
+            if (item) item[field] = val;
+            saveAppData();
+        }
+
+        function addEducationAdmin() {
+            const newId = Date.now();
+            appData.education.push({ id: newId, degree: "New Degree Title", institution: "University Name", period: "2026", cgpa: "4.00", description: "Details..." });
+            saveAppData();
+            renderEducationAdminList();
+        }
+
+        function deleteEducationAdmin(id) {
+            appData.education = appData.education.filter(e => e.id !== id);
+            saveAppData();
+            renderEducationAdminList();
+        }
+
+        // Publications Admin
+        function renderPublicationsAdminList() {
+            const list = document.getElementById('adm-pub-list');
+            list.innerHTML = appData.publications.map((pub, idx) => `
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-3 border border-slate-200 dark:border-slate-700">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-purple-600">Manuscript #${idx + 1}</span>
+                        <button onclick="deletePublicationAdmin(${pub.id})" class="text-xs text-red-500 font-bold hover:underline"><i class="fas fa-trash mr-1"></i>Delete</button>
+                    </div>
+                    <input type="text" value="${pub.title}" onchange="updatePubField(${pub.id}, 'title', this.value)" placeholder="Manuscript Title" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900 font-bold">
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <input type="text" value="${pub.authors}" onchange="updatePubField(${pub.id}, 'authors', this.value)" placeholder="Authors" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${pub.journal}" onchange="updatePubField(${pub.id}, 'journal', this.value)" placeholder="Journal / Status" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <select onchange="updatePubField(${pub.id}, 'category', this.value)" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                            <option value="under_review" ${pub.category === 'under_review' ? 'selected' : ''}>Under Review</option>
+                            <option value="published" ${pub.category === 'published' ? 'selected' : ''}>Published</option>
+                        </select>
+                        <input type="text" value="${pub.year}" onchange="updatePubField(${pub.id}, 'year', this.value)" placeholder="Year" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${pub.doi || ''}" onchange="updatePubField(${pub.id}, 'doi', this.value)" placeholder="DOI (optional)" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <label class="flex items-center space-x-2 text-xs font-bold">
+                            <input type="checkbox" ${pub.isFirstAuthor ? 'checked' : ''} onchange="updatePubField(${pub.id}, 'isFirstAuthor', this.checked)">
+                            <span>First-Author Paper</span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updatePubField(id, field, val) {
+            const item = appData.publications.find(p => p.id === id);
+            if (item) item[field] = val;
+            saveAppData();
+        }
+
+        function addPublicationAdmin() {
+            const newId = Date.now();
+            appData.publications.push({ id: newId, title: "New Research Paper Title", authors: "Anupam Das, et al.", journal: "Journal Name", year: "2026", category: "under_review", tags: "under_review", isFirstAuthor: true, doi: "" });
+            saveAppData();
+            renderPublicationsAdminList();
+        }
+
+        function deletePublicationAdmin(id) {
+            appData.publications = appData.publications.filter(p => p.id !== id);
+            saveAppData();
+            renderPublicationsAdminList();
+        }
+
+        // Experience Admin
+        function renderExperienceAdminList() {
+            const list = document.getElementById('adm-exp-list');
+            list.innerHTML = appData.experience.map((exp, idx) => `
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-3 border border-slate-200 dark:border-slate-700">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-amber-600">Experience #${idx + 1}</span>
+                        <button onclick="deleteExperienceAdmin(${exp.id})" class="text-xs text-red-500 font-bold hover:underline"><i class="fas fa-trash mr-1"></i>Delete</button>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <input type="text" value="${exp.role}" onchange="updateExpField(${exp.id}, 'role', this.value)" placeholder="Role Title" class="p-2 text-xs rounded-xl border dark:bg-slate-900 font-bold">
+                        <input type="text" value="${exp.institution}" onchange="updateExpField(${exp.id}, 'institution', this.value)" placeholder="Institution" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${exp.period}" onchange="updateExpField(${exp.id}, 'period', this.value)" placeholder="Period" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${exp.badge || ''}" onchange="updateExpField(${exp.id}, 'badge', this.value)" placeholder="Badge Tag (e.g. Current Role)" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                    </div>
+                    <textarea onchange="updateExpBullets(${exp.id}, this.value)" rows="3" placeholder="Bullet points (one per line)" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900">${exp.bullets.join('\n')}</textarea>
+                </div>
+            `).join('');
+        }
+
+        function updateExpField(id, field, val) {
+            const item = appData.experience.find(e => e.id === id);
+            if (item) item[field] = val;
+            saveAppData();
+        }
+
+        function updateExpBullets(id, text) {
+            const item = appData.experience.find(e => e.id === id);
+            if (item) item.bullets = text.split('\n').filter(b => b.trim() !== '');
+            saveAppData();
+        }
+
+        function addExperienceAdmin() {
+            const newId = Date.now();
+            appData.experience.push({ id: newId, role: "Research Position", institution: "Institution Name", period: "2026", badge: "New Role", bullets: ["Research duties description..."] });
+            saveAppData();
+            renderExperienceAdminList();
+        }
+
+        function deleteExperienceAdmin(id) {
+            appData.experience = appData.experience.filter(e => e.id !== id);
+            saveAppData();
+            renderExperienceAdminList();
+        }
+
+        // Gallery & Albums Admin
+        function renderGalleryAdminList() {
+            const list = document.getElementById('adm-gallery-list');
+            list.innerHTML = appData.gallery.map((item, idx) => `
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-3 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-emerald-600 uppercase">Photo #${idx + 1}</span>
+                            <button onclick="deleteGalleryItemAdmin(${item.id})" class="text-xs text-red-500 font-bold hover:underline"><i class="fas fa-trash mr-1"></i>Delete</button>
+                        </div>
+                        <img src="${item.imgUrl}" class="w-full h-32 object-cover rounded-xl bg-slate-900">
+                        <input type="text" value="${item.title}" onchange="updateGalleryField(${item.id}, 'title', this.value)" placeholder="Title" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900 font-bold">
+                        <input type="text" value="${item.album || 'General'}" onchange="updateGalleryField(${item.id}, 'album', this.value)" placeholder="Album Name" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${item.category || 'Photo'}" onchange="updateGalleryField(${item.id}, 'category', this.value)" placeholder="Category Tag" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${item.imgUrl}" onchange="updateGalleryField(${item.id}, 'imgUrl', this.value)" placeholder="Image URL" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <div class="flex items-center space-x-1">
+                            <span class="text-[10px] text-slate-500">Or upload:</span>
+                            <input type="file" accept="image/*" onchange="uploadGalleryFile(${item.id}, event)" class="text-[10px] file:py-0.5 file:px-2 file:rounded-lg file:border-0 file:bg-blue-100">
+                        </div>
+                        <textarea onchange="updateGalleryField(${item.id}, 'caption', this.value)" rows="2" placeholder="Caption" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900">${item.caption}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateGalleryField(id, field, val) {
+            const item = appData.gallery.find(g => g.id === id);
+            if (item) item[field] = val;
+            saveAppData();
+        }
+
+        function uploadGalleryFile(id, e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    updateGalleryField(id, 'imgUrl', evt.target.result);
+                    renderGalleryAdminList();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addGalleryItemAdmin() {
+            const newId = Date.now();
+            appData.gallery.push({ id: newId, album: "Lab Work", title: "New Photo Title", category: "Field Research", imgUrl: "https://placehold.co/600x400/102a43/ffffff?text=New+Gallery+Image", caption: "Photo description..." });
+            saveAppData();
+            renderGalleryAdminList();
+        }
+
+        function deleteGalleryItemAdmin(id) {
+            appData.gallery = appData.gallery.filter(g => g.id !== id);
+            saveAppData();
+            renderGalleryAdminList();
+        }
+
+        // References Admin
+        function renderReferencesAdminList() {
+            const list = document.getElementById('adm-ref-list');
+            list.innerHTML = appData.references.map((ref, idx) => `
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-3 border border-slate-200 dark:border-slate-700">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-indigo-600">Recommender #${idx + 1}</span>
+                        <button onclick="deleteReferenceAdmin(${ref.id})" class="text-xs text-red-500 font-bold hover:underline"><i class="fas fa-trash mr-1"></i>Delete</button>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <input type="text" value="${ref.name}" onchange="updateRefField(${ref.id}, 'name', this.value)" placeholder="Name" class="p-2 text-xs rounded-xl border dark:bg-slate-900 font-bold">
+                        <input type="text" value="${ref.title}" onchange="updateRefField(${ref.id}, 'title', this.value)" placeholder="Title" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${ref.email}" onchange="updateRefField(${ref.id}, 'email', this.value)" placeholder="Email" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                        <input type="text" value="${ref.badge || ''}" onchange="updateRefField(${ref.id}, 'badge', this.value)" placeholder="Badge (e.g. Primary Advisor)" class="p-2 text-xs rounded-xl border dark:bg-slate-900">
+                    </div>
+                    <textarea onchange="updateRefField(${ref.id}, 'dept', this.value)" rows="2" placeholder="Department & Address" class="w-full p-2 text-xs rounded-xl border dark:bg-slate-900">${ref.dept}</textarea>
+                </div>
+            `).join('');
+        }
+
+        function updateRefField(id, field, val) {
+            const item = appData.references.find(r => r.id === id);
+            if (item) item[field] = val;
+            saveAppData();
+        }
+
+        function addReferenceAdmin() {
+            const newId = Date.now();
+            appData.references.push({ id: newId, name: "Professor Name", title: "Professor", dept: "Department of Microbiology, BAU", email: "ref@bau.edu.bd", badge: "Academic Ref" });
+            saveAppData();
+            renderReferencesAdminList();
+        }
+
+        function deleteReferenceAdmin(id) {
+            appData.references = appData.references.filter(r => r.id !== id);
+            saveAppData();
+            renderReferencesAdminList();
+        }
+
+        function changePasswordAdmin() {
+            const newPass = document.getElementById('adm-new-pass').value;
+            if (newPass.length >= 4) {
+                appData.adminPassword = newPass;
+                saveAppData();
+                showToast('Admin password updated!');
+                document.getElementById('adm-new-pass').value = '';
+            } else {
+                alert('Password must be at least 4 characters long.');
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // INITIAL LOAD
+        window.onload = function() {
+            renderAllPublicSections();
+        };
+    </script>
+</body>
+</html>
