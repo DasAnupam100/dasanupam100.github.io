@@ -122,7 +122,8 @@
             "mobile": "soft"
           },
           "width": {
-            "desktop": "450"
+            "desktop": "450",
+            "mobile": "350"
           }
         }
       },
@@ -446,7 +447,7 @@
       "album": "Lab Work",
       "title": "BAU Molecular Virology Lab Work",
       "category": "Wet Lab Research",
-      "imgUrl": "<img src=\"images/qPCR.jpg\" alt=\"Performing realtime PCR at Laboratory of Virology\">",
+      "imgUrl": "images/qPCR.jpg",
       "caption": "Performing molecular diagnostic RT-qPCR assays at Laboratory of Virology, Bangladesh Agricultural University"
     },
     {
