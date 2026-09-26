@@ -1,0 +1,854 @@
+{
+  "profile": {
+    "name": "Anupam Das",
+    "headerTitle": "Doctor of Veterinary Medicine",
+    "title": "",
+    "position": "Research Assistant at Viral genomic and Infection Dynamics Laboratory",
+    "institution": "",
+    "tagline": "",
+    "cvUrl": "Anupam_Das_CV.pdf",
+    "avatarUrl": "https://i1.rgstatic.net/ii/profile.image/11431281382072040-1744823352979_Q512/Anupam-Das-49.jpg",
+    "yearsExperience": "2+",
+    "bio": "DVM graduate and MS researcher in Microbiology and Hygiene, with research experience in molecular biology, virology, and viral genomics. My research combines experimental and computational approaches to study pathogen biology, host–pathogen interactions, and molecular mechanisms of disease. Seeking for PhD in molecular biology and related fields.\n",
+    "researchInterests": "My PhD research interests center on the molecular evolution and phylodynamics of avian and zoonotic RNA/DNA viruses — particularly reassortment, recombination, and selection pressure driving emergence in poultry-dense, high-spillover-risk regions like South Asia. I am seeking a PhD lab with strengths in viral genomics, computational evolutionary biology, and One Health surveillance, where field-derived data can be paired with rigorous bioinformatic modeling.",
+    "researchPhilosophy": "I approach a problem by first going to the source — the outbreak, the sample, the raw sequencing read — before trusting any downstream model. Field diagnostics taught me that clean data beats clever statistics, and computational virology taught me that a phylogeny is only as honest as the quality control behind it. I try to hold both instincts at once: hands willing to do the bench work, and a mind that stays skeptical of its own pipeline.",
+    "currentResearch": "Fowl adenovirus",
+    "socialLinks": [
+      {
+        "id": 1,
+        "name": "Email",
+        "url": "mailto:anupam.1801100@bau.edu.bd"
+      },
+      {
+        "id": 2,
+        "name": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user=BAgU2WsAAAAJ&hl=en"
+      },
+      {
+        "id": 3,
+        "name": "ORCID",
+        "url": "https://orcid.org/0009-0008-4507-9089"
+      },
+      {
+        "id": 4,
+        "name": "LinkedIn",
+        "url": "https://linkedin.com/in/anupam-das100"
+      },
+      {
+        "id": 5,
+        "name": "Scopus",
+        "url": "https://www.scopus.com/authid/detail.uri?authorId=60235651000"
+      },
+      {
+        "id": 6,
+        "name": "Web of Science",
+        "url": "https://webofscience.com/wos/author/record/PEX-8405-2025"
+      },
+      {
+        "id": 1789654736986,
+        "name": "Researchgate",
+        "url": "https://www.researchgate.net/profile/Anupam-Das-49"
+      }
+    ],
+    "focusTags": [
+      {
+        "id": 1,
+        "text": "Molecular Virology",
+        "icon": "fas fa-virus",
+        "color": "blue"
+      },
+      {
+        "id": 2,
+        "text": "NGS Viral Genomics",
+        "icon": "fas fa-dna",
+        "color": "teal"
+      },
+      {
+        "id": 3,
+        "text": "Viral Evolution & Recombination",
+        "icon": "fas fa-diagram-project",
+        "color": "purple"
+      },
+      {
+        "id": 4,
+        "text": "Host-Pathogen Interactions",
+        "icon": "fas fa-shield-virus",
+        "color": "amber"
+      }
+    ],
+    "avatarShape": "square",
+    "institutionUrl": "",
+    "institutionLink": "link",
+    "address": "Bangladesh Agricultural University, Mymensingh-2202, Bangladesh",
+    "hero": {
+      "showTree": false,
+      "photoPos": {
+        "desktop": "left",
+        "mobile": "top"
+      },
+      "align": {
+        "desktop": "left",
+        "mobile": "center"
+      },
+      "nameSize": 0,
+      "nameColor": "",
+      "posSize": 0,
+      "posColor": "",
+      "bioSize": 0,
+      "bioColor": "",
+      "bgType": "default",
+      "bgColor": "#0a2240",
+      "bgGradient": "ocean",
+      "bgImage": "",
+      "overlay": 0,
+      "minHeight": 0,
+      "padTop": 0,
+      "padBottom": 0,
+      "showTagline": true,
+      "showInstitution": true,
+      "showAddress": true,
+      "showKeywords": true,
+      "showSocial": true,
+      "showCv": true,
+      "slide": true,
+      "photoShape": {
+        "desktop": "",
+        "mobile": ""
+      },
+      "styles": {
+        "photo": {
+          "shadow": {
+            "desktop": "soft",
+            "mobile": "soft"
+          },
+          "width": {
+            "desktop": "450"
+          }
+        }
+      },
+      "kw": {
+        "showIcon": true,
+        "layout": {
+          "desktop": "center",
+          "mobile": "center"
+        }
+      }
+    }
+  },
+  "pubCategories": [
+    {
+      "id": "all",
+      "label": "All Manuscripts"
+    },
+    {
+      "id": "under_review",
+      "label": "Under Review"
+    },
+    {
+      "id": "published",
+      "label": "Published"
+    }
+  ],
+  "galleryAlbums": [
+    "All Photos",
+    "Lab Work",
+    "Fellowships",
+    "Conferences"
+  ],
+  "education": [
+    {
+      "id": 1,
+      "degree": "MS in Microbiology",
+      "institution": "Bangladesh Agricultural University (BAU), Mymensingh",
+      "period": "2025 – 2026",
+      "cgpa": "3.83 / 4.00 (Upto Thesis)",
+      "description": "Thesis: Molecular detection and complete genomic characterization of fowl adenovirus (FAdV) strains circulating in poultry in Bangladesh.",
+      "institutionUrl": "vmh.bau.edu.bd",
+      "institutionLink": "link"
+    },
+    {
+      "id": 2,
+      "degree": "Doctor of Veterinary Medicine (DVM)",
+      "institution": "Bangladesh Agricultural University (BAU), Mymensingh",
+      "period": "2019 – 2023",
+      "cgpa": "3.312 / 4.00",
+      "description": "5-year professional veterinary program covering infectious disease pathology, epidemiology, clinical diagnostics, and diagnostic internship.",
+      "institutionUrl": "bau.edu.bd",
+      "institutionLink": "link"
+    }
+  ],
+  "skills": {
+    "category1": {
+      "title": "In Vitro & Wet-Lab",
+      "subtitle": "Laboratory Benchwork & Viral Culture",
+      "bullets": [
+        "[bullet] Viral Isolation & Culture: Embryonated Chicken Egg (ECE) inoculation (amniotic, allantoic, CAM routes), primary cell culture maintenance, cytopathic effect (CPE) monitoring.",
+        "[bullet] Serology & Titration: Hemagglutination (HA) and HA Inhibition (HI) assays, viral infectivity titration (EID50, ELD50 calculations), indirect and sandwich ELISA assays.",
+        "[bullet] Molecular Assays: Viral DNA/RNA extraction, PCR, Reverse transcription-PCR, Real-time PCR, agarose gel electrophoresis, gel documentation.",
+        "[bullet] Biosafety & Sample Processing: BSL-2 laboratory procedures, field sample processing from poultry/livestock tissue, aseptic technique, cold-chain maintenance."
+      ],
+      "icon": "",
+      "color": "",
+      "bulletStyle": "bullet",
+      "chip": {
+        "showIcon": true,
+        "shape": {
+          "mobile": "pill",
+          "desktop": "pill"
+        }
+      }
+    },
+    "category2": {
+      "title": "Computational biology & Bioinformatics",
+      "subtitle": "Genomic and evolutionary Analysis",
+      "bullets": [
+        "[bullet] NGS Genome Assembly & Annotation: Full-length viral genome assembly (SPAdes), quality filtering (FastQC, Trimmomatic), gene prediction, genome annotation (Prokka, NCBI).",
+        "[bullet] Phylogenetics & Evolutionary Dynamics: Maximum Likelihood and Bayesian phylogenetic tree construction (IQ-TREE, RAxML, MEGA, BEAST), tree visualization (FigTree, iTOL).",
+        "[bullet] Recombination & Selection Pressure: Recombination detection suite (RDP4/RDP5), site-specific selection pressure analysis (PAML).",
+        "[bullet] Vaccinology & Computational Tools: Subtractive genomics, Linux shell scripting, Python & R data visualization (Elementary)."
+      ],
+      "icon": "",
+      "color": "",
+      "bulletStyle": "bullet",
+      "chip": {
+        "showIcon": true,
+        "shape": {
+          "desktop": "pill",
+          "mobile": "pill"
+        }
+      }
+    }
+  },
+  "publications": [
+    {
+      "id": 1789662916695,
+      "title": "Complete genome sequence of a highly pathogenic H5N1 avian influenza virus from recent poultry outbreak in Bangladesh.",
+      "authors": "Farazi R, Tusar MTT, Roy CR, Mia R, Mozumder A, Das A, Tasmin J, Hasan SMN, Alam MS, Akter S, Saha S, Islam T, Hossain MG.",
+      "journal": "Microbiology Resource Announcements",
+      "year": "5 November 2025",
+      "category": "published",
+      "tags": "",
+      "isFirstAuthor": false,
+      "doi": "10.1128/mra.00825-25",
+      "journalUrl": "",
+      "journalLink": "link"
+    },
+    {
+      "id": 1789663113762,
+      "title": "Genome sequence of fowlpox virus from a field outbreak in Bangladesh",
+      "authors": "Mozumder A, Akter S, Mia R, Hasan SMN, Das A, Tasmin J, Mondal ABMHR, Rahman MS, Bhuiyan MIU, Akter S, Saha S, Hossain MG.",
+      "journal": "Microbiology Resource Announcements",
+      "year": "11 December 2025",
+      "category": "published",
+      "tags": "",
+      "isFirstAuthor": false,
+      "doi": "10.1128/mra.00881-25",
+      "journalUrl": "",
+      "journalLink": "link"
+    },
+    {
+      "id": 1789936497330,
+      "title": "Complete genome sequence of the hepatitis B virus from hemodialysis patients with occult infection in Bangladesh.",
+      "authors": "Mia R, Mozumder A, Disha PI, Ishi NS, Hasan SMN, Das A, Debnath C, Tasmin J, Rahman MS, Bhuiyan MIU, Akter S, Islam SMRU, Ahmed MU, Debnath CR, Hossain MG.",
+      "journal": "Microbiology Resource Announcements",
+      "year": "17 December 2025",
+      "category": "published",
+      "tags": "",
+      "isFirstAuthor": false,
+      "doi": "10.1128/mra.01081-25",
+      "journalUrl": "",
+      "journalLink": "link"
+    },
+    {
+      "id": 1789936498133,
+      "title": "Complete genome sequence of human papillomavirus type 45 identified from a cervical cancer patient in Bangladesh.",
+      "authors": "Tusar MTT, Ara R, Farazi R, Roy CR, Mia R, Mozumder A, Das A, Piyel SH, Rahman MS, Bhuiyan MIU, Akter S, Islam SMRU, Ehsan MA, Ahmed MU, Hossain MG.",
+      "journal": "Microbiology Resource Announcements",
+      "year": "10 March 2026",
+      "category": "published",
+      "tags": "",
+      "isFirstAuthor": false,
+      "doi": "10.1128/mra.01382-25",
+      "journalUrl": "",
+      "journalLink": "link"
+    },
+    {
+      "id": 1790264932424,
+      "title": "Comparative and subtractive genomics reveals novel therapeutic targets in cystic fibrosis-associated multidrug-resistant Pandoraea sputorum.",
+      "authors": "Mia R, Mozumder A, Das A, Salauddin M, Akter S, Rahman MS, Islam T, Zheng C, Xue M, Hossain MG.",
+      "journal": "Diagnostic Microbiology and Infectious Disease",
+      "year": "10 April 2026",
+      "category": "published",
+      "tags": "",
+      "isFirstAuthor": false,
+      "doi": "10.1016/j.diagmicrobio.2026.117412",
+      "journalUrl": "",
+      "journalLink": "link"
+    },
+    {
+      "id": 1790264936640,
+      "title": "First complete genome of a fowlpox virus isolated in Bangladesh reveals Asian lineage and clade A1.",
+      "authors": "Mozumder A, Mia R, Das A, Hasan SMN, Tasmin J, Farazi R, Salauddin M, Rahman MS, Akter S, Saha S, Islam T, Hossain MG.",
+      "journal": "Microbiology Spectrum",
+      "year": "29 May 2026",
+      "category": "published",
+      "tags": "",
+      "isFirstAuthor": false,
+      "doi": "10.1128/spectrum.03114-25",
+      "journalUrl": "",
+      "journalLink": "link"
+    },
+    {
+      "id": 1790264937071,
+      "title": "Complete genome sequencing of the fowlpox virus vaccine strain from the Livestock Research Institute, Bangladesh.",
+      "authors": "Akter MS, Das A, Piyel SH, Islam MM, Haque S, Mozumder A, Mia R, Rahman MS, Bhuiyan MIU, Akter S, Hoque MN, Islam T, Hossain MG.",
+      "journal": "Microbiology Resource Announcements",
+      "year": "15 June 2026",
+      "category": "published",
+      "tags": "",
+      "isFirstAuthor": false,
+      "doi": "10.1128/mra.00502-26",
+      "journalUrl": "",
+      "journalLink": "link"
+    },
+    {
+      "id": 1790264937419,
+      "title": "Complete genome sequencing of occult hepatitis B virus in hemodialysis patients reveals subgenotype D2 and immune escape mutations in Bangladesh.",
+      "authors": "Mia R, Mozumder A, Disha PI, Ishi NS, Hasan SMN, Das A, Debnath C, Rahman MS, Akter S, Islam SMRU, Saha S, Islam T, Ahmed MU, Debnath CR, Hossain MG.",
+      "journal": "International Journal of Microbiology",
+      "year": "7 September 2026",
+      "category": "published",
+      "tags": "",
+      "isFirstAuthor": false,
+      "doi": "10.1155/ijm/9533013",
+      "journalUrl": "",
+      "journalLink": "link"
+    }
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "role": "Research Assistant",
+      "institution": "Viral Genomics & Infection Dynamics Lab, Dept. of Microbiology and Hygiene, BAU",
+      "period": "2024 – Present",
+      "badge": "Current Appointment",
+      "bullets": [],
+      "institutionUrl": "vgid.bau.edu.bd",
+      "institutionLink": "link",
+      "certUrl": "",
+      "certLabel": "",
+      "certIcon": "",
+      "certColor": "",
+      "certMethod": "modal",
+      "certStyle": "button",
+      "certShape": "pill"
+    },
+    {
+      "id": 3,
+      "role": "Research Assistant",
+      "institution": "Livestock Research Institute (LRI), Department of Livestock Services (DLS)",
+      "period": "2025 – Present",
+      "badge": "Institutional Role",
+      "bullets": [
+        "Assisting in livestock viral vaccine quality control, seed virus maintenance, and field diagnostic ELISA testing for viral diseases."
+      ],
+      "institutionUrl": "lri.gov.bd",
+      "institutionLink": "link",
+      "certUrl": "",
+      "certLabel": "",
+      "certIcon": "",
+      "certColor": "",
+      "certMethod": "modal",
+      "certStyle": "button",
+      "certShape": "pill"
+    },
+    {
+      "id": 4,
+      "role": "Research Intern",
+      "institution": "Central Disease Investigation Laboratory (CDIL), Dhaka",
+      "period": "November 2024",
+      "badge": "Research Internship",
+      "bullets": [
+        "Rotated through outbreak response teams, epidemiological data gathering, and diagnostic necropsy for livestock viral outbreaks."
+      ],
+      "institutionUrl": "",
+      "institutionLink": "link",
+      "certUrl": "",
+      "certLabel": "",
+      "certIcon": "",
+      "certColor": "",
+      "certMethod": "modal",
+      "certStyle": "button",
+      "certShape": "pill"
+    },
+    {
+      "id": 1790265552642,
+      "role": "Research Intern",
+      "institution": "Bangladesh Livestock Research Institute, Savar, Dhaka",
+      "period": "October 2024",
+      "badge": "Research Internship",
+      "bullets": [],
+      "institutionUrl": "",
+      "institutionLink": "link",
+      "certUrl": "",
+      "certLabel": "",
+      "certIcon": "",
+      "certColor": "",
+      "certMethod": "modal",
+      "certStyle": "button",
+      "certShape": "pill"
+    }
+  ],
+  "awards": [
+    {
+      "id": 1,
+      "title": "SAKURA Science Exchange Program Fellowship",
+      "org": "Japan Science and Technology Agency (JST), Japan",
+      "period": "March 2026",
+      "meta": "SSC ID: 24101499",
+      "detail": "Competitively awarded international fellowship for advanced biotechnology training, high-throughput sequencing technologies, and cross-border research collaboration in viral disease containment.",
+      "orgUrl": "",
+      "orgLink": "link",
+      "certUrl": "",
+      "certLabel": "",
+      "certIcon": "",
+      "certColor": "",
+      "certMethod": "modal",
+      "certStyle": "button",
+      "certShape": "pill"
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "date": "Sept 2026",
+      "text": "Manuscript on FAdV-E genotype 8b genomics currently under peer review."
+    },
+    {
+      "id": 2,
+      "date": "March 2026",
+      "text": "Awarded the SAKURA Science Exchange Program Fellowship by JST, Japan."
+    },
+    {
+      "id": 3,
+      "date": "May 2026",
+      "text": "Fowlpox virus genome papers published in Microbiology Resource Announcements and Microbiology Spectrum."
+    },
+    {
+      "id": 4,
+      "date": "2026",
+      "text": "Began full-genome phylodynamic analysis of H5N1 (G1.1) outbreak strains in Bangladeshi poultry."
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "album": "Lab Work",
+      "title": "BAU Molecular Virology Lab Work",
+      "category": "Wet Lab Research",
+      "imgUrl": "<img src=\"images/qPCR.jpg\" alt=\"Performing realtime PCR at Laboratory of Virology\">",
+      "caption": "Performing molecular diagnostic RT-qPCR assays at Laboratory of Virology, Bangladesh Agricultural University"
+    },
+    {
+      "id": 2,
+      "album": "Fellowships",
+      "title": "SAKURA Science Program (Japan)",
+      "category": "International Fellowship",
+      "imgUrl": "<img src=\"images/sakura1.jpg\" alt=\"Description of the image\">",
+      "caption": "Participating in advanced workshops under JST in Japan."
+    },
+    {
+      "id": 3,
+      "album": "Fellowships",
+      "title": "Sakura Science Exchange Programe (Japan)",
+      "category": "International Felloship",
+      "imgUrl": "<img src=\"images/sakura2.jpg\" alt=\"Description of the image\">",
+      "caption": "Learning and performing molecular technique as a fellow of sakura science exchange program in Osaka University, Japan"
+    },
+    {
+      "id": 1790404940004,
+      "album": "Lab Work",
+      "title": "Agar gel Electrophoresis",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/gelrun1.jpg\" alt=\"Description of the image\">",
+      "caption": "Loading the PCR product to Agar Gel for Gel documentation"
+    },
+    {
+      "id": 1790404940017,
+      "album": "Conferences",
+      "title": "8th Food Safety Conference",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/food_conference.jpg\" alt=\"Description of the image\">",
+      "caption": "Participating and presenting poster at \"8th Food Safety Conference\""
+    },
+    {
+      "id": 1790404940087,
+      "album": "Lab Work",
+      "title": "RNA extraction and cDNA synthesis",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/rna1.jpg\" alt=\"Description of the image\">",
+      "caption": "Extracting RNA of viral sample from a field outbreak and synthesizing cDNA for the Detection of virus."
+    },
+    {
+      "id": 1790404940133,
+      "album": "Lab Work",
+      "title": "Quantification of DNA",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/dna_quant.jpg\" alt=\"Description of the image\">",
+      "caption": "Quantification of the extracted DNA concentration at Viral Genomics and Infection Dynamics Laboratory"
+    },
+    {
+      "id": 1790404940164,
+      "album": "Lab Work",
+      "title": "sakura1",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/sakura1.jpg\" alt=\"Description of the image\">",
+      "caption": "Participating in advanced workshops under JST in Japan."
+    },
+    {
+      "id": 1790404940185,
+      "album": "Lab Work",
+      "title": "sakura3",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/sakura3.jpg\" alt=\"Description of the image\">",
+      "caption": "Participating in advanced workshops under JST in Japan."
+    },
+    {
+      "id": 1790404940192,
+      "album": "Lab Work",
+      "title": "Cell culture",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/cell_check.jpg\" alt=\"Description of the image\">",
+      "caption": "Checking the confluency and viability of cell"
+    },
+    {
+      "id": 1790404940291,
+      "album": "Lab Work",
+      "title": "Cell Culture Experiment",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/cell_bench1.jpg\" alt=\"Description of the image\">",
+      "caption": "Working on maintenance of MDBK cell culture"
+    },
+    {
+      "id": 1790404940339,
+      "album": "Lab Work",
+      "title": "Enzyme Linked Immuno-sorbent assay",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/elisa.jpg\" alt=\"Description of the image\">",
+      "caption": "Performing ELISA to detect Hepatitis B antigen from patient serum from Mymensingh Medical College Hospital, Mymensingh"
+    },
+    {
+      "id": 1790404940390,
+      "album": "Lab Work",
+      "title": "DNA Purification",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/gelpurification1.jpg\" alt=\"Description of the image\">",
+      "caption": "DNA purification through Agar Gel Extraction method in viral genomics and infection dynamics laboratory."
+    },
+    {
+      "id": 1790404940443,
+      "album": "Lab Work",
+      "title": "Passive Hemaagglutination Test",
+      "category": "Photo",
+      "imgUrl": "<img src=\"images/pha1.jpg\" alt=\"Description of the image\">",
+      "caption": "Performing PHA to detect viral antibody of vaccinated birds "
+    }
+  ],
+  "references": [
+    {
+      "id": 1,
+      "name": "Dr. Md. Golzar Hossain",
+      "title": "Professor ",
+      "dept": "Department of Microbiology and Hygiene\nFaculty of Veterinary Science\nBangladesh Agricultural University (BAU), Mymensingh-2202",
+      "email": "mghossain@bau.edu.bd",
+      "badge": "Thesis Supervisor",
+      "deptUrl": "",
+      "deptLink": "link",
+      "photoUrl": "data:image/jpeg;base64,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"
+    },
+    {
+      "id": 2,
+      "name": "Dr. Sharmin Akter",
+      "title": "Professor",
+      "dept": "Department of Microbiology and Hygiene\nFaculty of Veterinary Science\nBangladesh Agricultural University (BAU), Mymensingh-2202",
+      "email": "sharmin.akter@bau.edu.bd",
+      "badge": "Academic Reference",
+      "deptUrl": "",
+      "deptLink": "link",
+      "photoUrl": "https://erp.bau.edu.bd/public/photos/employee_photo/6c0a0491f8d4d805139029e1a437e495.jpeg"
+    }
+  ],
+  "sectionVisibility": {
+    "about": true,
+    "metrics": true,
+    "researchFocus": false,
+    "education": true,
+    "skills": true,
+    "publications": true,
+    "awards": true,
+    "experience": true,
+    "gallery": true,
+    "references": true,
+    "researchInterests": true,
+    "researchPhilosophy": false,
+    "currentResearch": false,
+    "recentUpdates": true,
+    "publicationFilters": true,
+    "publicationList": true,
+    "awardsList": true,
+    "experienceList": true,
+    "galleryAlbums": true,
+    "galleryList": true,
+    "referencesList": true
+  },
+  "sectionOrder": [
+    "about",
+    "metrics",
+    "education",
+    "experience",
+    "skills",
+    "publications",
+    "researchFocus",
+    "awards",
+    "gallery",
+    "references"
+  ],
+  "customSections": [],
+  "siteText": {
+    "title": "Anupam Das, DVM, MS | Academic Portfolio",
+    "navTitle": "MS in Microbiology",
+    "navAbout": "About",
+    "navEducation": "Education",
+    "navSkills": "Skills",
+    "navPublications": "Publications",
+    "navAwards": "Awards",
+    "navExperience": "Experience",
+    "navGallery": "Gallery",
+    "navReferences": "References",
+    "cv": "CV",
+    "downloadCv": "CV",
+    "heroBadge": "",
+    "researchDirection": "Direction & Approach",
+    "researchFocus": "Research Focus",
+    "researchInterests": "Research Interests",
+    "researchPhilosophy": "",
+    "currentWorking": "Currently Working On",
+    "recentUpdates": "Recent Updates",
+    "academicBackground": "Academic Background",
+    "academicCredentials": "Academic Credentials",
+    "coreExpertise": "Core Expertise",
+    "technicalCapabilities": "Technical Capabilities",
+    "scholarlyOutput": "Scholarly Output",
+    "publications": "Publications & Manuscripts",
+    "searchPublications": "Search title, journal, or pathogen...",
+    "recognition": "Recognition",
+    "awards": "Grants, Awards & Fellowships",
+    "careerTrajectory": "Career Trajectory",
+    "experience": "Research Experience & Appointments",
+    "academicGallery": "Academic Gallery",
+    "gallery": "Fieldwork & Media Gallery",
+    "recommenders": "Recommenders",
+    "references": "Academic References",
+    "expandView": "Expand View",
+    "noMatching": "No matching manuscripts found.",
+    "doi": "DOI",
+    "firstAuthor": "First Author",
+    "published": "Published",
+    "underReview": "Under Review",
+    "manuscripts": "Manuscripts",
+    "firstAuthorMetric": "First-Author",
+    "yearsResearch": "Yrs Research Exp.",
+    "reference": "Reference",
+    "photo": "Photo",
+    "general": "General",
+    "allPhotos": "All Photos",
+    "rights": "All rights reserved.",
+    "viewAll": "View all manuscripts",
+    "showFewer": "Show fewer manuscripts",
+    "footerTitle": "Prospective PhD Student | Molecular Biology",
+    "noGalleryPhotos": "No gallery photos in this album.",
+    "visitLink": "",
+    "cgpaLabel": "CGPA",
+    "seeAll": "See all",
+    "seeLess": "Show fewer",
+    "certificate": "View certificate"
+  },
+  "metrics": [
+    {
+      "id": "manuscripts",
+      "label": "Manuscripts",
+      "source": "publications.total",
+      "value": "",
+      "enabled": true,
+      "prefix": "",
+      "suffix": ""
+    },
+    {
+      "id": "underReview",
+      "label": "Exchange Program",
+      "source": "manual",
+      "value": "1",
+      "enabled": true,
+      "prefix": "",
+      "suffix": ""
+    },
+    {
+      "id": "firstAuthor",
+      "label": "Degree",
+      "source": "manual",
+      "value": "2",
+      "enabled": true,
+      "prefix": "",
+      "suffix": ""
+    },
+    {
+      "id": "yearsResearch",
+      "label": "Yrs Research Exp.",
+      "source": "profile.yearsExperience",
+      "value": "",
+      "enabled": true,
+      "prefix": "",
+      "suffix": ""
+    }
+  ],
+  "typography": {
+    "about": "Inter",
+    "metrics": "Inter",
+    "researchFocus": "Inter",
+    "education": "Inter",
+    "skills": "Inter",
+    "publications": "Inter",
+    "awards": "Inter",
+    "experience": "Inter",
+    "gallery": "Inter",
+    "references": "Inter",
+    "researchInterests": "Inter",
+    "researchPhilosophy": "Inter",
+    "currentResearch": "Inter",
+    "recentUpdates": "Inter",
+    "publicationFilters": "Inter",
+    "publicationList": "Inter",
+    "awardsList": "Inter",
+    "experienceList": "Inter",
+    "galleryAlbums": "Inter",
+    "galleryList": "Inter",
+    "referencesList": "Inter"
+  },
+  "sectionCopies": [],
+  "layout": {
+    "sectionGap": 80,
+    "subGap": 28,
+    "pubCardOpacity": 60
+  },
+  "sectionSettings": {
+    "metrics": {
+      "countEasing": "expo"
+    },
+    "researchFocus": {
+      "collapsed": true,
+      "styles": {
+        "title": {
+          "align": {
+            "desktop": "justify",
+            "mobile": "justify"
+          }
+        }
+      }
+    },
+    "education": {
+      "collapsed": false,
+      "styles": {
+        "title": {
+          "align": {
+            "desktop": "justify",
+            "mobile": "justify"
+          }
+        }
+      }
+    },
+    "skills": {
+      "collapsed": false,
+      "styles": {
+        "title": {
+          "align": {
+            "desktop": "justify",
+            "mobile": "justify"
+          }
+        }
+      }
+    },
+    "publications": {
+      "collapsed": false,
+      "styles": {
+        "title": {
+          "align": {
+            "desktop": "justify",
+            "mobile": "justify"
+          }
+        }
+      }
+    },
+    "awards": {
+      "collapsed": true,
+      "styles": {
+        "title": {
+          "align": {
+            "desktop": "justify",
+            "mobile": "justify"
+          }
+        }
+      }
+    },
+    "experience": {
+      "collapsed": false,
+      "styles": {
+        "title": {
+          "align": {
+            "desktop": "justify",
+            "mobile": "justify"
+          }
+        }
+      }
+    },
+    "gallery": {
+      "collapsed": true,
+      "styles": {
+        "title": {
+          "align": {
+            "desktop": "justify",
+            "mobile": "justify"
+          }
+        }
+      }
+    },
+    "references": {
+      "collapsed": true,
+      "styles": {
+        "title": {
+          "align": {
+            "desktop": "justify",
+            "mobile": "justify"
+          }
+        }
+      }
+    }
+  },
+  "pageBg": {
+    "light": {
+      "desktop": {
+        "type": "gradient"
+      },
+      "mobile": {
+        "type": ""
+      }
+    },
+    "dark": {
+      "desktop": {
+        "type": "default"
+      },
+      "mobile": {
+        "type": ""
+      }
+    }
+  }
+}
